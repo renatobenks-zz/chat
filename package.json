@@ -53,6 +53,7 @@
   },
   "scripts": {
     "commitmsg": "commitlint -e $GIT_PARAMS",
+    "lint": "eslint --ext js src",
     "lint:css": "stylelint './src/**/*.js'",
     "start": "webpack-serve --config webpack.config.js",
     "build": "rimraf ./build && webpack -p --config webpack.prod.config.js --progress --profile --colors",
