@@ -1,0 +1,24 @@
+{
+  "presets": [
+    "flow",
+    ["es2015", {
+      "modules": false
+    }],
+    ["env", { "modules": false }],
+    "react",
+    "stage-0"
+  ],
+  "plugins": [
+    "babel-plugin-styled-components"
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        "env"
+      ],
+      "plugins": [
+        "dynamic-import-node"
+      ]
+    }
+  }
+}
