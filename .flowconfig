@@ -8,7 +8,7 @@
 [options]
 sharedmemory.hash_table_pow=21
 
-esproposal.export_star_as=enabled
+esproposal.export_star_as=enable
 
 suppress_comment= \\(.\\|\n\\)*\\$FlowIgnore
 suppress_type=$FlowIssue
