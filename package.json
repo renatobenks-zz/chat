@@ -87,9 +87,11 @@
     "prettier": "prettier --write --single-quote true --trailing-comma all --print-width 120",
     "flow": "flow check",
     "start": "webpack-serve --config webpack.config.js",
-    "build": "rimraf ./build && webpack -p --config webpack.prod.config.js --progress --profile --colors",
-    "build:dev": "rimraf ./build && webpack -p --config webpack.config.js --progress --profile --colors",
+    "build": "cp .env.prod .env && rimraf ./build && webpack -p --config webpack.prod.config.js --progress --profile --colors",
+    "build:dev": "cp .env.staging .env && rimraf ./build && webpack -p --config webpack.config.js --progress --profile --colors",
     "test": "jest --runInBand --forceExit",
-    "test:watch": "yarn test --watch"
+    "test:watch": "yarn test --watch",
+    "config:staging": "cp .env.staging .env",
+    "config:prod": "cp .env.prod .env"
   }
 }
