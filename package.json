@@ -3,8 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
+    "react-helmet": "^5.2.0",
     "react-hot-loader": "^4.3.1",
     "react-scripts": "1.1.4",
     "styled-components": "^3.3.2"
@@ -61,7 +63,9 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "coveragePathIgnorePatterns": ["<rootDir>/test"],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/test"
+    ],
     "collectCoverage": true,
     "setupFiles": [
       "<rootDir>/test/setup.js"

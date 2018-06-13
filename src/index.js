@@ -1,10 +1,17 @@
-// @flow
-
+import 'babel-polyfill';
 import * as React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { render } from 'react-dom';
+
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import App from './App';
+import AppRouter from './AppRouter';
+
+render(
+  <App>
+    <AppRouter />
+  </App>,
+  document.getElementById('root'),
+);
+
 registerServiceWorker();
