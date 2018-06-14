@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "date-fns": "^1.29.0",
+    "idx": "^2.4.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-helmet": "^5.2.0",
