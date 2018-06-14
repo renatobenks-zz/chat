@@ -13,6 +13,7 @@ const chatRoutes = {
       title: 'Join to the team chat',
       name: 'onboard',
       path: buildPath('/'),
+      // $FlowFixMe
       component: createLoadable(import('../../../screens/onboard/Onboard')),
       exact: true,
     },
