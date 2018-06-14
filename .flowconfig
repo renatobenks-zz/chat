@@ -4,6 +4,7 @@
 [include]
 
 [libs]
+<PROJECT_DIR>/flow-typed
 
 [options]
 sharedmemory.hash_table_pow=21
