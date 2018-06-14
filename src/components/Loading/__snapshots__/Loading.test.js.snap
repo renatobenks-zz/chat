@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`full loading 1`] = `
+<section
+  className="sc-bwzfXH lmaSKg"
+>
+  <div
+    className="sc-bdVaJa dAIsho"
+  />
+</section>
+`;
+
+exports[`loading as default 1`] = `
+<section
+  className="sc-bwzfXH bbjHGa"
+>
+  <div
+    className="sc-bdVaJa dAIsho"
+  />
+</section>
+`;
+
+exports[`not visible loading 1`] = `null`;
+
+exports[`spinner loading type 1`] = `
+<section
+  className="sc-bwzfXH bbjHGa"
+>
+  <div
+    className="sc-bdVaJa dAIsho"
+  />
+</section>
+`;
