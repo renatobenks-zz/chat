@@ -63,10 +63,17 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/test"
+    "testPathIgnorePatterns": [
+      "<rootDir>/coverage/",
+      "<rootDir>/node_modules/"
     ],
     "collectCoverage": true,
+    "coveragePathIgnorePatterns": [
+      "/__tests__/",
+      "/coverage/",
+      "/node_modules/",
+      "<rootDir>/test"
+    ],
     "setupFiles": [
       "<rootDir>/test/setup.js"
     ],
