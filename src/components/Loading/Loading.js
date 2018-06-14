@@ -61,7 +61,6 @@ const Loading = ({
 Loading.defaultProps = {
   visible: true,
   full: false,
-  type: TYPES.SPINNER,
 };
 
 export default Loading;
