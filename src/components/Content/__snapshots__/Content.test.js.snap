@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders content children with no title 1`] = `
+<div
+  className="sc-bdVaJa evVhyt"
+>
+  <span>
+    No title
+  </span>
+</div>
+`;
+
+exports[`renders content children with title 1`] = `
+<div
+  className="sc-bdVaJa evVhyt"
+>
+  <span>
+    Awesome title with: 
+    Mocked title
+  </span>
+</div>
+`;
