@@ -1,53 +1,54 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
 version: 2
-executorType: machine
 jobs:
   build:
-    machine:
-      macos:
-        xcode: "10.13.3"
-      node:
-        version: 8.9.0
-    working_directory: ~/app
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:8.9.0
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/repo
+
     steps:
       - checkout
-      - run:
-        name: Install yarn
-        command: |
-          brew install yarn
-      - restore_cache:
-        name: Restore Yarn Package Cache
-        keys:
-          - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
-          - yarn-packages-{{ .Branch }}
-          - yarn-packages-master
-          - yarn-packages-
 
-      - run:
-        name: Install Dependencies
-        command: yarn install --pure-lockfile
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: yarn install
 
       - save_cache:
-        name: Save Yarn Package Cache
-        key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
-        paths:
-          - node_modules/
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-        name: Testing
-        command: |
-          cp .env.local .env
-          yarn test
+          name: Testing
+          command: |
+            cp .env.local .env
+            yarn test
 
       - run:
-        name: ESLint
-        command: |
-          yarn lint
-          yarn lint:css
+          name: ESLint
+          command: |
+            yarn lint
+            yarn lint:css
 
       - run:
-        name: Flow
-        command: |
-          yarn flow
+          name: Flow
+          command: |
+            yarn flow
       - run:
           name: Build the site content
           command: |

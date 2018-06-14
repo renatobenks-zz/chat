@@ -15,6 +15,7 @@ const chatRoutes = {
       title: 'Team chat for Creditas',
       name: 'chat',
       path: buildPath('chat'),
+      // $FlowFixMe
       component: createLoadable(import('../../../screens/chat/Chat')),
       exact: true,
     },
