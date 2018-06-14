@@ -18,7 +18,7 @@ type Props = {
   history: RouterHistory,
 };
 
-export default function onChangeMiddleware(Component: React.ComponentType<{}>): React.ComponentType<{}> {
+export default function onChatMiddleware(Component: React.ComponentType<{}>): React.ComponentType<{}> {
   class ChatComponent extends React.Component<Props, State> {
     state = {
       isOnChat: isOnChat(),
