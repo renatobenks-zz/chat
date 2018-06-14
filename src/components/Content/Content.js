@@ -15,11 +15,14 @@ type Children = React.Element<any>;
 type Props = {
   title: ?string,
   children: Array<Children> | Children,
+  style?: {
+    [key: string]: any,
+  },
 };
 
-const Content = ({ children, title }: Props) => {
+const Content = ({ children, title, style }: Props) => {
   return (
-    <Wrapper>
+    <Wrapper style={style}>
       <Helmet>{title && <title>{title}</title>}</Helmet>
       {children}
     </Wrapper>

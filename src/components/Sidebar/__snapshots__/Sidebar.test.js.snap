@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the sidebar 1`] = `
+<div
+  className="sc-bdVaJa bFprJQ"
+>
+  <span>
+    simple text
+  </span>
+</div>
+`;
