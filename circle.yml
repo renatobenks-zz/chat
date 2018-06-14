@@ -1,0 +1,58 @@
+version: 2
+executorType: machine
+jobs:
+  build:
+    machine:
+      macos:
+        xcode: "10.13.3"
+      node:
+        version: 8.9.0
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run:
+        name: Install yarn
+        command: |
+          brew install yarn
+      - restore_cache:
+        name: Restore Yarn Package Cache
+        keys:
+          - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          - yarn-packages-{{ .Branch }}
+          - yarn-packages-master
+          - yarn-packages-
+
+      - run:
+        name: Install Dependencies
+        command: yarn install --pure-lockfile
+
+      - save_cache:
+        name: Save Yarn Package Cache
+        key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+        paths:
+          - node_modules/
+
+      - run:
+        name: Testing
+        command: |
+          cp .env.local .env
+          yarn test
+
+      - run:
+        name: ESLint
+        command: |
+          yarn lint
+          yarn lint:css
+
+      - run:
+        name: Flow
+        command: |
+          yarn flow
+      - run:
+          name: Build the site content
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "production" ]; then
+              yarn run build
+            elif [ "${CIRCLE_BRANCH}" == "master" ]; then
+              yarn run build:dev
+            fi
