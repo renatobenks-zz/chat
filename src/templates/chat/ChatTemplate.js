@@ -8,6 +8,7 @@ import type { RouterHistory } from 'react-router-dom';
 
 import drawRoutes from '../../router/drawRoutes';
 
+import Header from '../../components/Header/Header';
 import Logo from '../../components/Logo/Logo';
 
 import type { RouteType } from '../../TypeDefinition';
@@ -15,17 +16,6 @@ import type { RouteType } from '../../TypeDefinition';
 const Wrapper = styled.div`
   max-width: 100%;
   flex: 1;
-`;
-
-const Header = styled.header`
-  display: flex;
-  flex: 1;
-  justify-content: flex-start;
-  align-items: center;
-  background-color: ${props => props.theme.palette.white};
-  border-bottom: 1.5px solid ${props => props.theme.palette.secondary};
-  height: 90px;
-  padding: ${props => props.theme.padding};
 `;
 
 type Props = {
