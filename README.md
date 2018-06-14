@@ -1,6 +1,6 @@
 # chat
 
-[![CircleCI](https://circleci.com/gh/renatobenks/chat.svg?style=svg)](https://circleci.com/gh/renatobenks/chat)
+[![CircleCI](https://circleci.com/gh/renatobenks/chat.svg?style=svg&circle-token=f2571425557b730a247039a65c5aa57d8eb69f89)](https://circleci.com/gh/renatobenks/chat)
 [![codecov](https://codecov.io/gh/renatobenks/chat/branch/master/graph/badge.svg?token=d6Uc3dchY5)](https://codecov.io/gh/renatobenks/chat)
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
