@@ -7,6 +7,10 @@ import styled from 'styled-components';
 import type { RouterHistory } from 'react-router-dom';
 
 import drawRoutes from '../../router/drawRoutes';
+import routeTo from '../../router/routeTo';
+import { ROUTES } from '../../router/routes';
+
+import { isOnChat } from '../../security/channel';
 
 import Logo from '../../components/Logo/Logo';
 
@@ -47,6 +51,12 @@ type Props = {
 };
 
 class OnboardTemplate extends React.Component<Props> {
+  componentWillMount() {
+    if (isOnChat()) {
+      this.props.history.push(routeTo(ROUTES.CHAT));
+    }
+  }
+
   render() {
     return (
       <Wrapper>
