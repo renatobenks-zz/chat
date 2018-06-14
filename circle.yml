@@ -40,6 +40,11 @@ jobs:
             yarn test
 
       - run:
+          name: Codecov
+          command: |
+            bash <(curl -s https://codecov.io/bash)
+
+      - run:
           name: ESLint
           command: |
             yarn lint
