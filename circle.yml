@@ -3,7 +3,7 @@ executorType: machine
 jobs:
   build:
     docker:
-      - image: node:8.9.0
+      - image: node:8.0
     working_directory: ~/app
     steps:
       - checkout
