@@ -5,13 +5,16 @@ import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
+  width: 100%;
   flex: 1;
   padding: ${props => props.theme.padding};
 `;
 
+type Children = React.Element<any>;
+
 type Props = {
   title: ?string,
-  children: React.Element<{}>,
+  children: Array<Children> | Children,
 };
 
 const Content = ({ children, title }: Props) => {

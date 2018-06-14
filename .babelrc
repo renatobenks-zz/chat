@@ -9,7 +9,11 @@
     "stage-0"
   ],
   "plugins": [
-    "babel-plugin-styled-components"
+    "babel-plugin-styled-components",
+    ["react-loadable/babel", {
+      "server": true,
+      "webpack": true
+    }]
   ],
   "env": {
     "test": {

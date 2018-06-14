@@ -1,34 +1,22 @@
 // @flow
 
 import * as React from 'react';
-import styled from 'styled-components';
+import { BrowserRouter, Switch } from 'react-router-dom';
 
-import Logo from './components/Logo/Logo';
+import drawRoutes from './router/drawRoutes';
 
-const Wrapper = styled.div`
-  display: flex;
-  flex: 1;
-`;
+import type { RouteType } from './TypeDefinition';
 
-const Header = styled.header`
-  display: flex;
-  flex: 1;
-  justify-content: flex-start;
-  align-items: center;
-  background-color: ${props => props.theme.palette.white};
-  border-bottom: 1.5px solid ${props => props.theme.palette.secondary};
-  height: 90px;
-  padding: ${props => props.theme.padding};
-`;
+type Props = {
+  routes: Array<RouteType>,
+};
 
-export default class AppRouter extends React.Component<void> {
+export default class AppRouter extends React.Component<Props> {
   render() {
     return (
-      <Wrapper>
-        <Header>
-          <Logo />
-        </Header>
-      </Wrapper>
+      <BrowserRouter>
+        <Switch>{drawRoutes(this.props.routes)}</Switch>
+      </BrowserRouter>
     );
   }
 }

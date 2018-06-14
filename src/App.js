@@ -1,13 +1,10 @@
 // @flow
 
 import * as React from 'react';
-import { hot } from 'react-hot-loader';
 import { Helmet } from 'react-helmet';
 import { injectGlobal, ThemeProvider } from 'styled-components';
 
 import AppRouter from './AppRouter';
-
-import theme from './theme';
 
 if (process.env.NODE_ENV !== 'development') {
   for (const method of [
@@ -62,18 +59,22 @@ injectGlobal`
   }
 `;
 
+type Theme = {
+  [key: string]: any | Theme,
+};
+
 type Props = {
   children: React.Element<typeof AppRouter>,
+  theme: Theme,
 };
 
 class App extends React.Component<Props> {
   render() {
-    const { children } = this.props;
+    const { children, theme } = this.props;
 
     return (
       <React.Fragment>
         <Helmet>
-          <title>Team chat for Creditas</title>
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600" />
         </Helmet>
         <ThemeProvider theme={theme}>{children}</ThemeProvider>
@@ -82,4 +83,4 @@ class App extends React.Component<Props> {
   }
 }
 
-export default hot(module)(App);
+export default App;

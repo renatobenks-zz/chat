@@ -7,9 +7,12 @@ import registerServiceWorker from './registerServiceWorker';
 import App from './App';
 import AppRouter from './AppRouter';
 
+import routes from './router/routes';
+import theme from './theme';
+
 render(
-  <App>
-    <AppRouter />
+  <App theme={theme}>
+    <AppRouter routes={routes} />
   </App>,
   document.getElementById('root'),
 );
