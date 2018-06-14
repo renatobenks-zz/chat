@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<header
+  className="sc-bdVaJa ghYoLl"
+>
+  <span>
+    text into header
+  </span>
+</header>
+`;

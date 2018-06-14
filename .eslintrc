@@ -47,6 +47,7 @@
     "flowtype/use-flow-type": 1,
     "no-bitwise": 0,
     "react/no-unused-prop-types": 0,
-    "react/require-default-props": 0
+    "react/require-default-props": 0,
+    "curly": 0
   }
 }
