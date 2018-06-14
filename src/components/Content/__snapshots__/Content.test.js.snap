@@ -2,7 +2,7 @@
 
 exports[`renders content children with no title 1`] = `
 <div
-  className="sc-bdVaJa evVhyt"
+  className="sc-bdVaJa cWsHuj"
 >
   <span>
     No title
@@ -12,7 +12,7 @@ exports[`renders content children with no title 1`] = `
 
 exports[`renders content children with title 1`] = `
 <div
-  className="sc-bdVaJa evVhyt"
+  className="sc-bdVaJa cWsHuj"
 >
   <span>
     Awesome title with: 
