@@ -1,16 +1,19 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+
+import { render } from '../../../test/helpers';
 
 import Logo from './Logo';
 
+const renderer = component => render(component, { withTheme: true });
+
 it('renders logo as default', () => {
-  expect(renderer.create(<Logo />)).toMatchSnapshot();
+  expect(renderer(<Logo />)).toMatchSnapshot();
 });
 
 it('renders logo without title', () => {
-  expect(renderer.create(<Logo withTitle={false} />)).toMatchSnapshot();
+  expect(renderer(<Logo withTitle={false} />)).toMatchSnapshot();
 });
 
 it('renders logo with customized size', () => {
-  expect(renderer.create(<Logo size={40} />)).toMatchSnapshot();
+  expect(renderer(<Logo size={40} />)).toMatchSnapshot();
 });
