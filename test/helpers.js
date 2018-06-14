@@ -16,7 +16,8 @@ type RenderParams = {
   withTheme: boolean,
 };
 
-export function render(component: React.Element<any>, params: RenderParams): ReactTestRenderer {
+export function render(component: React.Element<any>, p: RenderParams): ReactTestRenderer {
+  const params = p || {};
   if (params.withTheme) return create(withTheme(component));
   return create(component);
 }
