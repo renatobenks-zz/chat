@@ -11,43 +11,43 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Install yarn
-        command: |
-          brew install yarn
+          name: Install yarn
+          command: |
+            brew install yarn
       - restore_cache:
-        name: Restore Yarn Package Cache
-        keys:
-          - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
-          - yarn-packages-{{ .Branch }}
-          - yarn-packages-master
-          - yarn-packages-
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-packages-{{ .Branch }}
+            - yarn-packages-master
+            - yarn-packages-
 
       - run:
-        name: Install Dependencies
-        command: yarn install --pure-lockfile
+          name: Install Dependencies
+          command: yarn install --pure-lockfile
 
       - save_cache:
-        name: Save Yarn Package Cache
-        key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
-        paths:
-          - node_modules/
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules/
 
       - run:
-        name: Testing
-        command: |
-          cp .env.local .env
-          yarn test
+          name: Testing
+          command: |
+            cp .env.local .env
+            yarn test
 
       - run:
-        name: ESLint
-        command: |
-          yarn lint
-          yarn lint:css
+          name: ESLint
+          command: |
+            yarn lint
+            yarn lint:css
 
       - run:
-        name: Flow
-        command: |
-          yarn flow
+          name: Flow
+          command: |
+            yarn flow
       - run:
           name: Build the site content
           command: |
