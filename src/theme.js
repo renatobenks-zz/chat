@@ -3,9 +3,6 @@
 import logo from './static/svg/logo/logo.svg';
 
 const theme = {
-  app: {
-    logo,
-  },
   palette: {
     primary: '#24E28B',
     secondary: '#1FC6C1',
@@ -13,6 +10,10 @@ const theme = {
     white: '#fff',
     black: '#000',
   },
+  svg: {
+    logo,
+  },
+  padding: '1rem',
 };
 
 export default theme;

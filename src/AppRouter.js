@@ -18,7 +18,7 @@ const Header = styled.header`
   background-color: ${props => props.theme.palette.white};
   border-bottom: 1.5px solid ${props => props.theme.palette.secondary};
   height: 90px;
-  padding: 1rem;
+  padding: ${props => props.theme.padding};
 `;
 
 export default class AppRouter extends React.Component<void> {
