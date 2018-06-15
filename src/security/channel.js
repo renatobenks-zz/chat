@@ -1,6 +1,6 @@
 // @flow
 
-import { LOCAL_STORAGE } from '../contants';
+import { LOCAL_STORAGE } from '../constants';
 
 export function getChannel() {
   return window.localStorage.getItem(LOCAL_STORAGE.CHANNEL);

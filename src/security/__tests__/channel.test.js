@@ -2,7 +2,7 @@ import localStorage from 'localStorage';
 
 import { getChannel, isOnChat, updateChannel, removeChannel } from '../channel';
 
-import { LOCAL_STORAGE } from '../../contants';
+import { LOCAL_STORAGE } from '../../constants';
 
 it('get channel from local storage', () => {
   getChannel();
