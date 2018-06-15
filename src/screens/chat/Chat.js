@@ -9,6 +9,8 @@ import idx from 'idx';
 import type { ContextRouter } from 'react-router-dom';
 
 import { getChannel } from '../../security/channel';
+import { EVENT_HANDLERS } from '../../constants';
+import theme from '../../theme';
 
 import Content from '../../components/Content/Content';
 import Sidebar from '../../components/Sidebar/Sidebar';
@@ -22,12 +24,17 @@ import Icon from '../../components/Icon/Icon';
 import withData from '../../hocs/withData';
 
 import type { WithDataProps } from '../../hocs/withData';
-import { Chat as ChatType } from '../../data';
+import type { Chat as ChatType } from '../../data';
 
 const CustomSidebar = styled(Sidebar)`
+  width: 10%;
+  height: 100%;
   background: ${props => props.theme.palette.secondary};
   padding: 2rem;
   z-index: 2;
+  position: fixed;
+  left: 1rem;
+  top: calc(${props => props.theme.header.height} + 1rem);
 `;
 
 const User = styled.div`
@@ -59,7 +66,7 @@ const UserName = styled.span`
 
 const Conversation = styled.div`
   display: flex;
-  flex-grow: 11;
+  width: 90%;
   flex-direction: column;
   justify-content: center;
 `;
@@ -81,6 +88,10 @@ const NoMessages = styled.h1`
   }
 `;
 
+const CustomMessages = styled(Messages)`
+  padding-bottom: 90px;
+`;
+
 const SendMessageActions = styled.div`
   position: fixed;
   left: 0;
@@ -91,9 +102,10 @@ const SendMessageActions = styled.div`
   justify-self: flex-end;
   align-self: center;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   border-top: 2px solid ${props => props.theme.palette.secondary};
+  background: ${props => props.theme.palette.white};
   padding: ${props => props.theme.padding};
   z-index: 1;
 `;
@@ -126,8 +138,9 @@ const SendMessageButton = styled.button`
 `;
 
 type State = {
-  chat: ChatType,
-  conversation: ?number,
+  chat: ?ChatType,
+  conversation: ?string,
+  message: ?string,
 };
 
 type Props = {
@@ -139,18 +152,66 @@ type Props = {
 class Chat extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-
-    const chat = this.props.chat[parseInt(getChannel(), 10)] || null;
-    const [conversation] = Object.keys(idx(chat, _ => _.conversations) || {});
+    const chat = this.getChat(props);
+    const conversation = this.getConversationId(chat);
 
     this.state = {
       chat,
-      conversation: parseInt(conversation, 10),
+      conversation,
+      message: null,
     };
   }
 
-  renderConversations = () => {
-    return Object.values(this.state.chat.conversations).map(conversation => {
+  componentWillReceiveProps(nextProps: Props) {
+    const chat = this.getChat(nextProps);
+    const conversation = this.getConversationId(chat);
+
+    if (chat !== this.state.chat) {
+      this.setState({ chat });
+    }
+
+    if (conversation !== this.state.conversation) {
+      this.setState({ conversation });
+    }
+  }
+
+  getChat = (props: Props): ?ChatType => {
+    const channel = getChannel();
+    if (!channel) return null;
+
+    // $FlowFixMe
+    return props.chat[channel];
+  };
+
+  getConversationId = (chat: ?ChatType): ?string => {
+    return Object.keys(idx(chat, _ => _.conversations) || {})[0] || null;
+  };
+
+  addMessage = () => {
+    const { message, chat, conversation } = this.state;
+    const { id: chatId } = chat || {};
+    if (!message || !chatId || !conversation) return;
+
+    this.props.addMessage(chatId, conversation, message);
+    this.setState({ message: null }, () => {
+      window.scrollTo(0, document.body.offsetHeight);
+    });
+  };
+
+  handleKeyToAddMessage = (e: SyntheticEvent<HTMLButtonElement>) => {
+    if (e.which === EVENT_HANDLERS.KEYBOARD_CODES.ENTER) {
+      this.addMessage();
+    }
+  };
+
+  onChangeMessage = (event: SyntheticEvent<HTMLButtonElement>) => {
+    this.setState({
+      message: idx(event, _ => _.currentTarget.value),
+    });
+  };
+
+  renderConversations = (): Array<?React.Element<typeof User>> => {
+    return Object.values(idx(this.state.chat, _ => _.conversations) || {}).map(conversation => {
       if (!conversation) return null;
 
       return (
@@ -164,7 +225,7 @@ class Chat extends React.Component<Props, State> {
     });
   };
 
-  renderChatMessages = () => {
+  renderChatMessages = (): React.Element<typeof ChatMessages> => {
     const conversation = idx(this.state.chat, _ => _.conversations[this.state.conversation]);
 
     return (
@@ -180,7 +241,7 @@ class Chat extends React.Component<Props, State> {
           }
 
           return (
-            <Messages>
+            <CustomMessages>
               {messages.edges.map(({ node }) => (
                 <Message
                   key={node.id}
@@ -190,7 +251,7 @@ class Chat extends React.Component<Props, State> {
                   {node.text}
                 </Message>
               ))}
-            </Messages>
+            </CustomMessages>
           );
         }}
       </ChatMessages>
@@ -201,8 +262,13 @@ class Chat extends React.Component<Props, State> {
     return (
       <SendMessageActions>
         <SendMessage>
-          <SendMessageInput placeholder="Type your message here" />
-          <SendMessageButton>
+          <SendMessageInput
+            placeholder="Type your message here"
+            value={this.state.message || ''}
+            onKeyPress={this.handleKeyToAddMessage}
+            onChange={this.onChangeMessage}
+          />
+          <SendMessageButton onClick={this.addMessage}>
             <Icon size={20}>
               <Icon.SendMessage color="black" />
             </Icon>
@@ -233,8 +299,9 @@ const styles = {
     display: 'flex',
     flex: 1,
     flexFlow: 'row nowrap',
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-end',
     alignItems: 'stretch',
+    marginTop: theme.header.height,
   },
 };
 

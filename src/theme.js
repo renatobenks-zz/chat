@@ -36,6 +36,9 @@ const theme = {
     logo,
   },
   padding: '1rem',
+  header: {
+    height: '90px',
+  },
 };
 
 export default theme;

@@ -18,6 +18,13 @@ const Wrapper = styled.div`
   flex: 1;
 `;
 
+const CustomHeader = styled(Header)`
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+`;
+
 type Props = {
   history: RouterHistory,
   routes: Array<RouteType>,
@@ -27,9 +34,9 @@ class ChatTemplate extends React.Component<Props> {
   render() {
     return (
       <Wrapper>
-        <Header>
+        <CustomHeader>
           <Logo />
-        </Header>
+        </CustomHeader>
         {drawRoutes(this.props.routes)}
       </Wrapper>
     );

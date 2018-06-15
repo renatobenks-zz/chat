@@ -1,12 +1,16 @@
 // @flow
 
 import * as React from 'react';
-
-import Loading from '../../components/Loading/Loading';
-
-import theme from '../../theme';
+import styled from 'styled-components';
 
 import type { Conversation, Messages, User } from '../../data';
+
+const LoadingMessage = styled.h1`
+  color: ${props => props.theme.palette.secondary};
+  font-size: 22px;
+  text-transform: uppercase;
+  text-align: center;
+`;
 
 type State = {
   messages: ?Messages,
@@ -29,25 +33,35 @@ class ChatMessages extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    this.fetchChatMessages();
+    this.setState({ isLoading: true });
+
+    this.timeout = setTimeout(() => {
+      this.fetchChatMessages();
+      this.setState({ isLoading: false });
+    }, 1500);
   }
 
   componentWillUnmount() {
     clearTimeout(this.timeout);
   }
 
+  componentWillReceiveProps(nextProps: Props) {
+    if (nextProps.conversation !== this.props.conversation) {
+      this.receiveMessages(nextProps);
+    }
+  }
+
   fetchChatMessages = () => {
-    this.setState({ isLoading: true });
+    this.receiveMessages();
+  };
 
-    this.timeout = setTimeout(() => {
-      const { messages, user } = this.props.conversation || {};
+  receiveMessages = (props?: Props) => {
+    const { messages, user } = (props || this.props).conversation || {};
 
-      this.setState({
-        isLoading: false,
-        messages: messages || null,
-        user: user || null,
-      });
-    }, 1500);
+    this.setState({
+      messages: messages || null,
+      user: user || null,
+    });
   };
 
   render() {
@@ -55,7 +69,7 @@ class ChatMessages extends React.Component<Props, State> {
     const { children: Children } = this.props;
 
     if (isLoading) {
-      return <Loading color={theme.palette.secondary} noBackground />;
+      return <LoadingMessage>Loading...</LoadingMessage>;
     }
 
     return <Children messages={messages} user={user} />;
