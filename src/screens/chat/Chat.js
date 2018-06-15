@@ -189,16 +189,21 @@ class Chat extends React.Component<Props, State> {
 
   addMessage = () => {
     const { message, chat, conversation } = this.state;
+
+    // $FlowFixMe
     const { id: chatId } = chat || {};
     if (!message || !chatId || !conversation) return;
 
+    // $FlowFixMe
     this.props.addMessage(chatId, conversation, message);
+
     this.setState({ message: null }, () => {
-      window.scrollTo(0, document.body.offsetHeight);
+      window.scrollTo(0, document.body && document.body.offsetHeight);
     });
   };
 
   handleKeyToAddMessage = (e: SyntheticEvent<HTMLButtonElement>) => {
+    // $FlowFixMe
     if (e.which === EVENT_HANDLERS.KEYBOARD_CODES.ENTER) {
       this.addMessage();
     }
@@ -226,7 +231,8 @@ class Chat extends React.Component<Props, State> {
   };
 
   renderChatMessages = (): React.Element<typeof ChatMessages> => {
-    const conversation = idx(this.state.chat, _ => _.conversations[this.state.conversation]);
+    const { conversation: conversationId } = this.state;
+    const conversation = conversationId ? idx(this.state.chat, _ => _.conversations[conversationId]) : null;
 
     return (
       <ChatMessages conversation={conversation}>
@@ -305,4 +311,7 @@ const styles = {
   },
 };
 
-export default hot(module)(withData(Chat));
+// $FlowFixMe
+const ChatContainer = withData(Chat);
+
+export default hot(module)(ChatContainer);

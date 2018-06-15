@@ -31,6 +31,7 @@ export default function withData(Component: React.ComponentType<WithDataProps>):
   class WithDataComponent extends React.Component<Props, State> {
     state = {
       me: data.me,
+      // $FlowFixMe
       chat: data.chat,
     };
 

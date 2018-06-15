@@ -86,7 +86,7 @@ export type Messages = {
 };
 
 export type Conversation = {
-  id: number,
+  id: string,
   user: User,
   messages: Messages,
 };
