@@ -14,8 +14,8 @@ const data = {
           id: '1000',
           user: {
             id: '2013',
-            name: 'Fernanda Godoy',
-            email: 'fernanda.godoy2905@gmail.com',
+            name: 'Luck John',
+            email: 'luck.john@gmail.com',
           },
           messages: {
             pageInfo: {
@@ -29,12 +29,12 @@ const data = {
                 cursor: '0',
                 node: {
                   id: '102392',
-                  text: 'Hi!',
+                  text: 'Im Luck, lets talk?',
                   createdAt: new Date().toISOString(),
                   author: {
                     id: '2013',
-                    name: 'Fernanda Godoy',
-                    email: 'fernanda.godoy2905@gmail.com',
+                    name: 'Luck John',
+                    email: 'luck.john@gmail.com',
                   },
                 },
               },
@@ -48,6 +48,112 @@ const data = {
                     id: '2014',
                     name: 'Renato Benkendorf',
                     email: 'renatobenkendorfs@gmail.com',
+                  },
+                },
+              },
+            ],
+          },
+        },
+        '1001': {
+          id: '1001',
+          user: {
+            id: '2012',
+            name: 'Juquinha',
+            email: 'juquinha@gmail.com',
+          },
+          messages: {
+            pageInfo: {
+              startCursor: '0',
+              endCursor: '5',
+              hasNextPage: true,
+              hasPreviousPage: false,
+            },
+            edges: [
+              {
+                cursor: '0',
+                node: {
+                  id: '9128392',
+                  text: 'Im Juqinha',
+                  createdAt: new Date().toISOString(),
+                  author: {
+                    id: '2012',
+                    name: 'Juquinha',
+                    email: 'juquinha@gmail.com',
+                  },
+                },
+              },
+              {
+                cursor: '1',
+                node: {
+                  id: '34937',
+                  text: 'how are u?',
+                  createdAt: new Date().toISOString(),
+                  author: {
+                    id: '2012',
+                    name: 'Juquinha',
+                    email: 'juquinha@gmail.com',
+                  },
+                },
+              },
+            ],
+          },
+        },
+        '1002': {
+          id: '1002',
+          user: {
+            id: '2011',
+            name: 'Brendon James',
+            email: 'brendon.james@gmail.com',
+          },
+          messages: {
+            pageInfo: {
+              startCursor: '0',
+              endCursor: '5',
+              hasNextPage: true,
+              hasPreviousPage: false,
+            },
+            edges: [
+              {
+                cursor: '0',
+                node: {
+                  id: '12039120',
+                  text: 'Hi, I wanna kill you!',
+                  createdAt: new Date().toISOString(),
+                  author: {
+                    id: '2011',
+                    name: 'Brendon James',
+                    email: 'brendon.james@gmail.com',
+                  },
+                },
+              },
+            ],
+          },
+        },
+        '1003': {
+          id: '1003',
+          user: {
+            id: '2010',
+            name: 'Bill Bon',
+            email: 'bill.bon@gmail.com',
+          },
+          messages: {
+            pageInfo: {
+              startCursor: '0',
+              endCursor: '5',
+              hasNextPage: true,
+              hasPreviousPage: false,
+            },
+            edges: [
+              {
+                cursor: '0',
+                node: {
+                  id: '3943849',
+                  text: 'Hi!',
+                  createdAt: new Date().toISOString(),
+                  author: {
+                    id: '2010',
+                    name: 'Bill Bon',
+                    email: 'bill.bon@gmail.com',
                   },
                 },
               },
