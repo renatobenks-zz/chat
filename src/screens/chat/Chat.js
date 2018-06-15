@@ -17,6 +17,7 @@ import ChatMessages from '../../containers/ChatMessages/ChatMessages';
 
 import Messages from '../../components/Messages/Messages';
 import Message from '../../components/Message/Message';
+import Icon from '../../components/Icon/Icon';
 
 import withData from '../../hocs/withData';
 
@@ -26,6 +27,7 @@ import { Chat as ChatType } from '../../data';
 const CustomSidebar = styled(Sidebar)`
   background: ${props => props.theme.palette.secondary};
   padding: 2rem;
+  z-index: 2;
 `;
 
 const User = styled.div`
@@ -77,6 +79,50 @@ const NoMessages = styled.h1`
   > strong {
     font-size: 30px;
   }
+`;
+
+const SendMessageActions = styled.div`
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 90px;
+  display: flex;
+  justify-self: flex-end;
+  align-self: center;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-top: 2px solid ${props => props.theme.palette.secondary};
+  padding: ${props => props.theme.padding};
+  z-index: 1;
+`;
+
+const SendMessage = styled.div`
+  width: 75%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const SendMessageInput = styled.input`
+  flex: 1;
+  border: 1px solid ${props => props.theme.palette.gray};
+  border-radius: 2rem;
+  padding: ${props => props.theme.padding};
+  font-size: 16px;
+  margin: 0 1rem;
+  font-family: 'Montserrat', sans-serif;
+`;
+
+const SendMessageButton = styled.button`
+  padding: ${props => props.theme.padding};
+  background: transparent;
+  border: 1px solid ${props => props.theme.palette.gray};
+  color: ${props => props.theme.palette.gray};
+  border-radius: 50%;
+  cursor: pointer;
 `;
 
 type State = {
@@ -151,13 +197,31 @@ class Chat extends React.Component<Props, State> {
     );
   };
 
+  renderSendMessage = () => {
+    return (
+      <SendMessageActions>
+        <SendMessage>
+          <SendMessageInput placeholder="Type your message here" />
+          <SendMessageButton>
+            <Icon size={20}>
+              <Icon.SendMessage color="black" />
+            </Icon>
+          </SendMessageButton>
+        </SendMessage>
+      </SendMessageActions>
+    );
+  };
+
   render() {
     const { chat } = this.state;
 
     return (
       <Content title={this.props.title} style={styles.content}>
         {chat && <CustomSidebar>{this.renderConversations()}</CustomSidebar>}
-        <Conversation>{this.renderChatMessages()}</Conversation>
+        <Conversation>
+          {this.renderChatMessages()}
+          {this.renderSendMessage()}
+        </Conversation>
       </Content>
     );
   }
