@@ -23,6 +23,7 @@ const CustomHeader = styled(Header)`
   position: fixed;
   top: 0;
   left: 0;
+  justify-content: center;
 `;
 
 type Props = {

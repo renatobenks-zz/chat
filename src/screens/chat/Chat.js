@@ -26,15 +26,21 @@ import withData from '../../hocs/withData';
 import type { WithDataProps } from '../../hocs/withData';
 import type { Chat as ChatType } from '../../data';
 
-const CustomSidebar = styled(Sidebar)`
+const SidebarWrapper = styled.div`
   width: 10%;
-  height: 100%;
+  max-height: 100%;
+  overflow-y: auto;
   background: ${props => props.theme.palette.secondary};
-  padding: 2rem;
-  z-index: 2;
   position: fixed;
-  left: 1rem;
-  top: calc(${props => props.theme.header.height} + 1rem);
+  left: 0;
+  top: ${props => props.theme.header.height};
+  bottom: ${props => props.theme.header.height};
+  padding: 2rem;
+`;
+
+const CustomSidebar = styled(Sidebar)`
+  min-height: 100%;
+  display: table;
 `;
 
 const User = styled.div`
@@ -97,12 +103,12 @@ const SendMessageActions = styled.div`
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 90px;
+  height: ${props => props.theme.header.height};
   display: flex;
   justify-self: flex-end;
   align-self: center;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   border-top: 2px solid ${props => props.theme.palette.secondary};
   background: ${props => props.theme.palette.white};
@@ -289,7 +295,11 @@ class Chat extends React.Component<Props, State> {
 
     return (
       <Content title={this.props.title} style={styles.content}>
-        {chat && <CustomSidebar>{this.renderConversations()}</CustomSidebar>}
+        {chat && (
+          <SidebarWrapper>
+            <CustomSidebar>{this.renderConversations()}</CustomSidebar>
+          </SidebarWrapper>
+        )}
         <Conversation>
           {this.renderChatMessages()}
           {this.renderSendMessage()}
