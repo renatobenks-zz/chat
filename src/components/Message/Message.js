@@ -41,8 +41,8 @@ const Label = styled.span`
 
 type Props = {
   children: React.Element<any>,
-  isFromMe: boolean,
-  label: string,
+  isFromMe?: ?boolean,
+  label?: string,
 };
 
 const Message = ({ children, isFromMe, label }: Props) => {
