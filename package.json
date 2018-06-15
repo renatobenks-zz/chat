@@ -6,8 +6,6 @@
     "babel-polyfill": "^6.26.0",
     "date-fns": "^1.29.0",
     "idx": "^2.4.0",
-    "lodash.get": "^4.4.2",
-    "lodash.set": "^4.3.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-helmet": "^5.2.0",
