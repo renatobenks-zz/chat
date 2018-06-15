@@ -221,13 +221,17 @@ class Chat extends React.Component<Props, State> {
     });
   };
 
+  openConversation = (id: string) => {
+    this.setState({ conversation: id });
+  };
+
   renderConversations = (): Array<?React.Element<typeof User>> => {
     return Object.values(idx(this.state.chat, _ => _.conversations) || {}).map(conversation => {
       if (!conversation) return null;
 
       return (
         // $FlowFixMe
-        <User key={conversation.id}>
+        <User key={conversation.id} onClick={() => this.openConversation(conversation.id)}>
           <UserImage src="https://i.imgur.com/I80W1Q0.png" />
           {/*$FlowFixMe*/}
           <UserName>{conversation.user.name}</UserName>
