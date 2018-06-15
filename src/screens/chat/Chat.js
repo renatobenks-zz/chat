@@ -56,8 +56,27 @@ const UserName = styled.span`
 `;
 
 const Conversation = styled.div`
+  display: flex;
   flex-grow: 11;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const NoMessages = styled.h1`
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  color: ${props => props.theme.palette.secondary};
   text-align: center;
+  font-size: 24px;
+  font-weight: 800;
+  align-self: center;
+
+  > strong {
+    font-size: 30px;
+  }
 `;
 
 type State = {
@@ -76,10 +95,11 @@ class Chat extends React.Component<Props, State> {
     super(props);
 
     const chat = this.props.chat[parseInt(getChannel(), 10)] || null;
+    const [conversation] = Object.keys(idx(chat, _ => _.conversations) || {});
 
     this.state = {
       chat,
-      conversation: parseInt(Object.keys(idx(chat, _ => _.conversations) || {})[0], 10),
+      conversation: parseInt(conversation, 10),
     };
   }
 
@@ -99,17 +119,18 @@ class Chat extends React.Component<Props, State> {
   };
 
   renderChatMessages = () => {
-    const { conversations } = this.state.chat || {};
-
-    if (!conversations) {
-      return <h1>No conversation</h1>;
-    }
+    const conversation = idx(this.state.chat, _ => _.conversations[this.state.conversation]);
 
     return (
-      <ChatMessages conversation={conversations[this.state.conversation]}>
+      <ChatMessages conversation={conversation}>
         {({ messages, user }) => {
-          if (!messages) {
-            return <h1>No messages</h1>;
+          if (!messages || !messages.edges || messages.edges.length < 1) {
+            return (
+              <NoMessages>
+                <strong>There's no messages yet!</strong>
+                Begins a conversation right now.
+              </NoMessages>
+            );
           }
 
           return (
