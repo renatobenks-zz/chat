@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`media unit types 1`] = `
+Array [
+  "extraSmall",
+  "small",
+  "medium",
+  "large",
+  "extraLarge",
+]
+`;
+
+exports[`media unit types 2`] = `
+Object {
+  "extraLarge": Object {
+    "type": "min-width",
+    "unit": "1200px",
+  },
+  "extraSmall": Object {
+    "type": "max-width",
+    "unit": "576px",
+  },
+  "large": Object {
+    "type": "min-width",
+    "unit": "992px",
+  },
+  "medium": Object {
+    "type": "min-width",
+    "unit": "768px",
+  },
+  "small": Object {
+    "type": "min-width",
+    "unit": "576px",
+  },
+}
+`;
