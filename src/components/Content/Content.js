@@ -14,7 +14,7 @@ type Children = React.Element<any>;
 
 type Props = {
   title: ?string,
-  children: Array<Children> | Children,
+  children: Array<?Children> | Children | null,
   style?: {
     [key: string]: any,
   },

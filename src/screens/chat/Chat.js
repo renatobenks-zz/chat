@@ -9,6 +9,8 @@ import idx from 'idx';
 import type { ContextRouter } from 'react-router-dom';
 
 import { getChannel } from '../../security/channel';
+import { EVENT_HANDLERS } from '../../constants';
+import theme from '../../theme';
 
 import Content from '../../components/Content/Content';
 import Sidebar from '../../components/Sidebar/Sidebar';
@@ -17,15 +19,22 @@ import ChatMessages from '../../containers/ChatMessages/ChatMessages';
 
 import Messages from '../../components/Messages/Messages';
 import Message from '../../components/Message/Message';
+import Icon from '../../components/Icon/Icon';
 
 import withData from '../../hocs/withData';
 
 import type { WithDataProps } from '../../hocs/withData';
-import { Chat as ChatType } from '../../data';
+import type { Chat as ChatType } from '../../data';
 
 const CustomSidebar = styled(Sidebar)`
+  width: 10%;
+  height: 100%;
   background: ${props => props.theme.palette.secondary};
   padding: 2rem;
+  z-index: 2;
+  position: fixed;
+  left: 1rem;
+  top: calc(${props => props.theme.header.height} + 1rem);
 `;
 
 const User = styled.div`
@@ -56,13 +65,82 @@ const UserName = styled.span`
 `;
 
 const Conversation = styled.div`
-  flex-grow: 11;
+  display: flex;
+  width: 90%;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const NoMessages = styled.h1`
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  color: ${props => props.theme.palette.secondary};
   text-align: center;
+  font-size: 24px;
+  font-weight: 800;
+  align-self: center;
+
+  > strong {
+    font-size: 30px;
+  }
+`;
+
+const CustomMessages = styled(Messages)`
+  padding-bottom: 90px;
+`;
+
+const SendMessageActions = styled.div`
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 90px;
+  display: flex;
+  justify-self: flex-end;
+  align-self: center;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  border-top: 2px solid ${props => props.theme.palette.secondary};
+  background: ${props => props.theme.palette.white};
+  padding: ${props => props.theme.padding};
+  z-index: 1;
+`;
+
+const SendMessage = styled.div`
+  width: 75%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const SendMessageInput = styled.input`
+  flex: 1;
+  border: 1px solid ${props => props.theme.palette.gray};
+  border-radius: 2rem;
+  padding: ${props => props.theme.padding};
+  font-size: 16px;
+  margin: 0 1rem;
+  font-family: 'Montserrat', sans-serif;
+`;
+
+const SendMessageButton = styled.button`
+  padding: ${props => props.theme.padding};
+  background: transparent;
+  border: 1px solid ${props => props.theme.palette.gray};
+  color: ${props => props.theme.palette.gray};
+  border-radius: 50%;
+  cursor: pointer;
 `;
 
 type State = {
-  chat: ChatType,
-  conversation: ?number,
+  chat: ?ChatType,
+  conversation: ?string,
+  message: ?string,
 };
 
 type Props = {
@@ -74,17 +152,71 @@ type Props = {
 class Chat extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-
-    const chat = this.props.chat[parseInt(getChannel(), 10)] || null;
+    const chat = this.getChat(props);
+    const conversation = this.getConversationId(chat);
 
     this.state = {
       chat,
-      conversation: parseInt(Object.keys(idx(chat, _ => _.conversations) || {})[0], 10),
+      conversation,
+      message: null,
     };
   }
 
-  renderConversations = () => {
-    return Object.values(this.state.chat.conversations).map(conversation => {
+  componentWillReceiveProps(nextProps: Props) {
+    const chat = this.getChat(nextProps);
+    const conversation = this.getConversationId(chat);
+
+    if (chat !== this.state.chat) {
+      this.setState({ chat });
+    }
+
+    if (conversation !== this.state.conversation) {
+      this.setState({ conversation });
+    }
+  }
+
+  getChat = (props: Props): ?ChatType => {
+    const channel = getChannel();
+    if (!channel) return null;
+
+    // $FlowFixMe
+    return props.chat[channel];
+  };
+
+  getConversationId = (chat: ?ChatType): ?string => {
+    return Object.keys(idx(chat, _ => _.conversations) || {})[0] || null;
+  };
+
+  addMessage = () => {
+    const { message, chat, conversation } = this.state;
+
+    // $FlowFixMe
+    const { id: chatId } = chat || {};
+    if (!message || !chatId || !conversation) return;
+
+    // $FlowFixMe
+    this.props.addMessage(chatId, conversation, message);
+
+    this.setState({ message: null }, () => {
+      window.scrollTo(0, document.body && document.body.offsetHeight);
+    });
+  };
+
+  handleKeyToAddMessage = (e: SyntheticEvent<HTMLButtonElement>) => {
+    // $FlowFixMe
+    if (e.which === EVENT_HANDLERS.KEYBOARD_CODES.ENTER) {
+      this.addMessage();
+    }
+  };
+
+  onChangeMessage = (event: SyntheticEvent<HTMLButtonElement>) => {
+    this.setState({
+      message: idx(event, _ => _.currentTarget.value),
+    });
+  };
+
+  renderConversations = (): Array<?React.Element<typeof User>> => {
+    return Object.values(idx(this.state.chat, _ => _.conversations) || {}).map(conversation => {
       if (!conversation) return null;
 
       return (
@@ -98,22 +230,24 @@ class Chat extends React.Component<Props, State> {
     });
   };
 
-  renderChatMessages = () => {
-    const { conversations } = this.state.chat || {};
-
-    if (!conversations) {
-      return <h1>No conversation</h1>;
-    }
+  renderChatMessages = (): React.Element<typeof ChatMessages> => {
+    const { conversation: conversationId } = this.state;
+    const conversation = conversationId ? idx(this.state.chat, _ => _.conversations[conversationId]) : null;
 
     return (
-      <ChatMessages conversation={conversations[this.state.conversation]}>
+      <ChatMessages conversation={conversation}>
         {({ messages, user }) => {
-          if (!messages) {
-            return <h1>No messages</h1>;
+          if (!messages || !messages.edges || messages.edges.length < 1) {
+            return (
+              <NoMessages>
+                <strong>There's no messages yet!</strong>
+                Begins a conversation right now.
+              </NoMessages>
+            );
           }
 
           return (
-            <Messages>
+            <CustomMessages>
               {messages.edges.map(({ node }) => (
                 <Message
                   key={node.id}
@@ -123,10 +257,30 @@ class Chat extends React.Component<Props, State> {
                   {node.text}
                 </Message>
               ))}
-            </Messages>
+            </CustomMessages>
           );
         }}
       </ChatMessages>
+    );
+  };
+
+  renderSendMessage = () => {
+    return (
+      <SendMessageActions>
+        <SendMessage>
+          <SendMessageInput
+            placeholder="Type your message here"
+            value={this.state.message || ''}
+            onKeyPress={this.handleKeyToAddMessage}
+            onChange={this.onChangeMessage}
+          />
+          <SendMessageButton onClick={this.addMessage}>
+            <Icon size={20}>
+              <Icon.SendMessage color="black" />
+            </Icon>
+          </SendMessageButton>
+        </SendMessage>
+      </SendMessageActions>
     );
   };
 
@@ -136,7 +290,10 @@ class Chat extends React.Component<Props, State> {
     return (
       <Content title={this.props.title} style={styles.content}>
         {chat && <CustomSidebar>{this.renderConversations()}</CustomSidebar>}
-        <Conversation>{this.renderChatMessages()}</Conversation>
+        <Conversation>
+          {this.renderChatMessages()}
+          {this.renderSendMessage()}
+        </Conversation>
       </Content>
     );
   }
@@ -148,9 +305,13 @@ const styles = {
     display: 'flex',
     flex: 1,
     flexFlow: 'row nowrap',
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-end',
     alignItems: 'stretch',
+    marginTop: theme.header.height,
   },
 };
 
-export default hot(module)(withData(Chat));
+// $FlowFixMe
+const ChatContainer = withData(Chat);
+
+export default hot(module)(ChatContainer);

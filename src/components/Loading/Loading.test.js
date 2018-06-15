@@ -21,3 +21,11 @@ it('spinner loading type', () => {
 it('not visible loading', () => {
   expect(renderer(<Loading visible={false} />)).toMatchSnapshot();
 });
+
+it('loading with no wrapper', () => {
+  expect(renderer(<Loading withWrapper={false} />)).toMatchSnapshot();
+});
+
+it('loading with no background', () => {
+  expect(renderer(<Loading noBackground />)).toMatchSnapshot();
+});

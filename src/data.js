@@ -1,3 +1,5 @@
+// @flow
+
 const data = {
   me: {
     id: '2014',
@@ -5,9 +7,10 @@ const data = {
     email: 'renatobenkendorfs@gmail.com',
   },
   chat: {
-    1024: {
+    '1024': {
+      id: '1024',
       conversations: {
-        1000: {
+        '1000': {
           id: '1000',
           user: {
             id: '2013',
@@ -76,26 +79,27 @@ export type Messages = {
         id: string,
         text: string,
         author: User,
+        createdAt: string,
       },
     },
   ],
 };
 
 export type Conversation = {
-  id: number,
+  id: string,
   user: User,
   messages: Messages,
 };
 
 export type Chat = {
   conversations: {
-    [id: number]: Conversation,
+    [id: string]: Conversation,
   },
 };
 
 export type Data = {
   chat: {
-    [id: number]: Chat,
+    [id: string]: Chat,
   },
 };
 

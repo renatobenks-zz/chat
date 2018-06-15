@@ -17,11 +17,16 @@ const SPINNERS = {
 
 const Wrapper = styled.section`
   display: flex;
+  flex: 1;
   padding: 1rem;
   flex-flow: column wrap;
   align-items: center;
   justify-content: center;
-  background: ${props => props.background || props.theme.palette.primary};
+  ${props =>
+    !props.noBackground &&
+    css`
+      background: ${props => props.background || props.theme.palette.primary};
+    `};
   ${props =>
     props.full &&
     css`
@@ -41,17 +46,28 @@ type Props = {
   color?: string,
   background?: string,
   children?: React.Element<any>,
+  withWrapper?: boolean,
+  noBackground?: boolean,
 };
 
 const Loading = ({
-  visible, full, type, background, children, ...props 
+  visible, full, type, background, children, withWrapper, ...props 
 }: Props) => {
   if (!visible) return null;
 
   const Spinner = (type && SPINNERS[type]) || SPINNERS[TYPES.SPINNER];
 
+  if (!withWrapper) {
+    return (
+      <React.Fragment>
+        <Spinner {...props} />
+        {children}
+      </React.Fragment>
+    );
+  }
+
   return (
-    <Wrapper full={full} background={background}>
+    <Wrapper full={full} background={background} {...props}>
       <Spinner {...props} />
       {children}
     </Wrapper>
@@ -61,6 +77,7 @@ const Loading = ({
 Loading.defaultProps = {
   visible: true,
   full: false,
+  withWrapper: true,
 };
 
 export default Loading;

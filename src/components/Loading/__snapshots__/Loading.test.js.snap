@@ -2,7 +2,7 @@
 
 exports[`full loading 1`] = `
 <section
-  className="sc-bwzfXH lmaSKg"
+  className="sc-bwzfXH dakndE"
 >
   <div
     className="sc-bdVaJa dAIsho"
@@ -12,7 +12,7 @@ exports[`full loading 1`] = `
 
 exports[`loading as default 1`] = `
 <section
-  className="sc-bwzfXH bbjHGa"
+  className="sc-bwzfXH dSITrc"
 >
   <div
     className="sc-bdVaJa dAIsho"
@@ -20,11 +20,27 @@ exports[`loading as default 1`] = `
 </section>
 `;
 
+exports[`loading with no background 1`] = `
+<section
+  className="sc-bwzfXH heNNMP"
+>
+  <div
+    className="sc-bdVaJa dAIsho"
+  />
+</section>
+`;
+
+exports[`loading with no wrapper 1`] = `
+<div
+  className="sc-bdVaJa dAIsho"
+/>
+`;
+
 exports[`not visible loading 1`] = `null`;
 
 exports[`spinner loading type 1`] = `
 <section
-  className="sc-bwzfXH bbjHGa"
+  className="sc-bwzfXH dSITrc"
 >
   <div
     className="sc-bdVaJa dAIsho"
