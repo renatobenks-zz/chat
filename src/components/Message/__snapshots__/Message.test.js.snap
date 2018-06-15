@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`message from me 1`] = `
+<div
+  className="sc-bdVaJa gXWJqC"
+>
+  <div
+    className="sc-bwzfXH kmfMKZ"
+  >
+    <span
+      className="sc-htpNat drENqL"
+    >
+      some message
+    </span>
+  </div>
+  <span
+    className="sc-bxivhb TwBys"
+  />
+</div>
+`;
+
+exports[`message with children 1`] = `
+<div
+  className="sc-bdVaJa ggSTVf"
+>
+  <div
+    className="sc-bwzfXH dqrULd"
+  >
+    <span
+      className="sc-htpNat drENqL"
+    >
+      some message
+    </span>
+  </div>
+  <span
+    className="sc-bxivhb TwBys"
+  />
+</div>
+`;
+
+exports[`message with label 1`] = `
+<div
+  className="sc-bdVaJa ggSTVf"
+>
+  <div
+    className="sc-bwzfXH dqrULd"
+  >
+    <span
+      className="sc-htpNat drENqL"
+    >
+      some message
+    </span>
+  </div>
+  <span
+    className="sc-bxivhb TwBys"
+  >
+    some label
+  </span>
+</div>
+`;
+
+exports[`message with not children 1`] = `
+<div
+  className="sc-bdVaJa ggSTVf"
+>
+  <div
+    className="sc-bwzfXH dqrULd"
+  >
+    <span
+      className="sc-htpNat drENqL"
+    />
+  </div>
+  <span
+    className="sc-bxivhb TwBys"
+  />
+</div>
+`;
