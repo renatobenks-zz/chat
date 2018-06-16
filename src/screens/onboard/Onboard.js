@@ -72,7 +72,11 @@ class Onboard extends React.Component<Props> {
     const meChat = chatOwners.indexOf(this.props.me.id);
 
     // $FlowFixMe
-    return meChat !== -1 ? updateChannel((chats[meChat] || {}).id) : null;
+    const { id: chatId } = chats[meChat] || {};
+
+    if (!chatId) return;
+
+    updateChannel(chatId);
   };
 
   render() {
