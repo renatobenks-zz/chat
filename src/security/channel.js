@@ -2,11 +2,11 @@
 
 import { LOCAL_STORAGE } from '../constants';
 
-export function getChannel() {
+export function getChannel(): string {
   return window.localStorage.getItem(LOCAL_STORAGE.CHANNEL);
 }
 
-export function isOnChat() {
+export function isOnChat(): boolean {
   return !!getChannel();
 }
 
