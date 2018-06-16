@@ -9,6 +9,11 @@ const data = {
   chat: {
     '1024': {
       id: '1024',
+      owner: {
+        id: '2014',
+        name: 'Renato Benkendorf',
+        email: 'renatobenkendorfs@gmail.com',
+      },
       conversations: {
         '1000': {
           id: '1000',
