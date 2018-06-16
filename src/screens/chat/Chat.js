@@ -6,9 +6,11 @@ import format from 'date-fns/format';
 import styled from 'styled-components';
 import idx from 'idx';
 
-import type { ContextRouter } from 'react-router-dom';
+import type { RouterHistory } from 'react-router-dom';
 
 import { getChannel } from '../../security/channel';
+import routeTo from '../../router/routeTo';
+import { ROUTES } from '../../router/routes';
 import { EVENT_HANDLERS } from '../../constants';
 import theme from '../../theme';
 
@@ -150,47 +152,47 @@ type State = {
 };
 
 type Props = {
-  ...ContextRouter,
   ...WithDataProps,
+  history: RouterHistory,
   title: string,
 };
 
 class Chat extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    const chat = this.getChat(props);
-    const conversation = this.getConversationId(chat);
+  state = {
+    chat: null,
+    conversation: null,
+    message: null,
+  };
 
-    this.state = {
-      chat,
-      conversation,
-      message: null,
-    };
+  componentWillMount() {
+    const chat = this.getChat(this.props);
+    const highlightedConversation = Object.keys(idx(chat, _ => _.conversations) || {})[0];
+
+    if (!chat) {
+      return this.props.history.push(routeTo(ROUTES.ONBOARD));
+    }
+
+    this.setState({ chat, conversation: highlightedConversation });
   }
 
   componentWillReceiveProps(nextProps: Props) {
     const chat = this.getChat(nextProps);
-    const conversation = this.getConversationId(chat);
 
     if (chat !== this.state.chat) {
       this.setState({ chat });
-    }
-
-    if (conversation !== this.state.conversation) {
-      this.setState({ conversation });
     }
   }
 
   getChat = (props: Props): ?ChatType => {
     const channel = getChannel();
-    if (!channel) return null;
 
     // $FlowFixMe
-    return props.chat[channel];
-  };
+    const chat = channel && props.chat && props.chat[channel];
 
-  getConversationId = (chat: ?ChatType): ?string => {
-    return Object.keys(idx(chat, _ => _.conversations) || {})[0] || null;
+    if (!chat) return null;
+
+    // $FlowFixMe
+    return chat;
   };
 
   addMessage = () => {
@@ -225,7 +227,7 @@ class Chat extends React.Component<Props, State> {
     this.setState({ conversation: id });
   };
 
-  renderConversations = (): Array<?React.Element<typeof User>> => {
+  renderConversations = () => {
     return Object.values(idx(this.state.chat, _ => _.conversations) || {}).map(conversation => {
       if (!conversation) return null;
 
