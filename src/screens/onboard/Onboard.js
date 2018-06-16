@@ -3,8 +3,9 @@
 import * as React from 'react';
 import { hot } from 'react-hot-loader';
 import styled from 'styled-components';
+import idx from 'idx';
 
-import type { ContextRouter } from 'react-router-dom';
+import type { RouterHistory } from 'react-router-dom';
 
 import routeTo from '../../router/routeTo';
 import { ROUTES } from '../../router/routes';
@@ -12,6 +13,10 @@ import { ROUTES } from '../../router/routes';
 import { updateChannel } from '../../security/channel';
 
 import Content from '../../components/Content/Content';
+
+import withData from '../../hocs/withData';
+
+import type { WithDataProps } from '../../hocs/withData';
 
 const Wrapper = styled.div`
   display: flex;
@@ -46,14 +51,28 @@ const Button = styled.button`
 `;
 
 type Props = {
-  ...ContextRouter,
+  ...WithDataProps,
+  history: RouterHistory,
   title: string,
 };
 
 class Onboard extends React.Component<Props> {
   goToChat = () => {
-    updateChannel('Creditas');
+    this.saveChannel();
     this.props.history.push(routeTo(ROUTES.CHAT));
+  };
+
+  saveChannel = () => {
+    const chats = Object.values(this.props.chat);
+
+    // $FlowFixMe
+    const chatOwners = chats.map(chat => idx(chat, _ => _.owner.id));
+
+    // $FlowFixMe
+    const meChat = chatOwners.indexOf(this.props.me.id);
+
+    // $FlowFixMe
+    return meChat !== -1 ? updateChannel((chats[meChat] || {}).id) : null;
   };
 
   render() {
@@ -68,4 +87,7 @@ class Onboard extends React.Component<Props> {
   }
 }
 
-export default hot(module)(Onboard);
+// $FlowFixMe
+const OnboardContainer = withData(Onboard);
+
+export default hot(module)(OnboardContainer);
