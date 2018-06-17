@@ -8,7 +8,7 @@ const SVGCircle = styled.circle`
   ${props =>
     props.border &&
     css`
-      stroke: ${props.border || props.theme.palette.black};
+      stroke: ${props.border !== true ? props.border : props.theme.palette.black};
       stroke-width: 10px;
     `};
 `;
