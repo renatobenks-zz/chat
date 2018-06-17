@@ -21,13 +21,20 @@ import type { WithDataProps } from '../../hocs/withData';
 const Wrapper = styled.div`
   display: flex;
   flex: 1;
-  flex-direction: row;
+  flex-flow: column wrap;
   justify-content: center;
   align-items: center;
 `;
 
 const Title = styled.h1`
   margin: 0;
+  color: ${props => props.theme.palette.white};
+`;
+
+const NoTeamChatMessage = styled.h2`
+  margin: 1rem 0 0;
+  font-size: 18px;
+  text-decoration: underline;
   color: ${props => props.theme.palette.white};
 `;
 
@@ -57,26 +64,25 @@ type Props = {
 };
 
 class Onboard extends React.Component<Props> {
-  goToChat = () => {
-    this.saveChannel();
+  goToChat = (chatId: string) => {
+    updateChannel(chatId);
     this.props.history.push(routeTo(ROUTES.CHAT));
   };
 
-  saveChannel = () => {
-    const chats = Object.values(this.props.chat);
-
+  renderJoinTeamButton = () => {
+    const { chat } = this.props;
     // $FlowFixMe
-    const chatOwners = chats.map(chat => idx(chat, _ => _.owner.id));
+    const [chatId] = Object.keys(chat || {}).filter(key => idx(chat[key], _ => _.owner.id === this.props.me.id));
 
-    // $FlowFixMe
-    const meChat = chatOwners.indexOf(this.props.me.id);
+    if (!chatId) {
+      return (
+        <NoTeamChatMessage>
+          There's not any chat where you belongs! Please, request access in our list.
+        </NoTeamChatMessage>
+      );
+    }
 
-    // $FlowFixMe
-    const { id: chatId } = chats[meChat] || {};
-
-    if (!chatId) return;
-
-    updateChannel(chatId);
+    return <Button onClick={() => this.goToChat(chatId)}>Join</Button>;
   };
 
   render() {
@@ -84,7 +90,7 @@ class Onboard extends React.Component<Props> {
       <Content title={this.props.title}>
         <Wrapper>
           <Title>Welcome to creditas team chat!</Title>
-          <Button onClick={this.goToChat}>Join</Button>
+          {this.renderJoinTeamButton()}
         </Wrapper>
       </Content>
     );
