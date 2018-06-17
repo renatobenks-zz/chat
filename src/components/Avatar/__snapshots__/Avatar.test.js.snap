@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`avatar with border 1`] = `
+<img
+  className="sc-bdVaJa jzrVrQ"
+  src="image.png"
+/>
+`;
+
+exports[`avatar with children 1`] = `
+<img
+  className="sc-bdVaJa ievrqM"
+  src="image.png"
+>
+  <span>
+    anything
+  </span>
+</img>
+`;
+
+exports[`avatar with custom border 1`] = `
+<img
+  className="sc-bdVaJa guoxHn"
+  src="image.png"
+/>
+`;
+
+exports[`avatar with custom size 1`] = `
+<img
+  className="sc-bdVaJa fDMnpK"
+  size="40px"
+  src="image.png"
+/>
+`;
+
+exports[`avatar with default size 1`] = `
+<img
+  className="sc-bdVaJa ievrqM"
+  src="image.png"
+/>
+`;
+
+exports[`avatar with default size 2`] = `
+<img
+  className="sc-bdVaJa ievrqM"
+  size={null}
+  src="image.png"
+/>
+`;
+
+exports[`avatar with default size 3`] = `
+<img
+  className="sc-bdVaJa ievrqM"
+  size={0}
+  src="image.png"
+/>
+`;
+
+exports[`avatar with no border 1`] = `
+<img
+  className="sc-bdVaJa ievrqM"
+  src="image.png"
+/>
+`;
+
+exports[`avatar with no border 2`] = `
+<img
+  className="sc-bdVaJa ievrqM"
+  src="image.png"
+/>
+`;
+
+exports[`avatar with no border 3`] = `
+<img
+  className="sc-bdVaJa kREVLs"
+  src="image.png"
+/>
+`;
+
+exports[`avatar with no children 1`] = `
+<img
+  className="sc-bdVaJa ievrqM"
+  src="image.png"
+/>
+`;
+
+exports[`avatar with no image 1`] = `
+<img
+  className="sc-bdVaJa ievrqM"
+/>
+`;

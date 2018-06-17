@@ -2,76 +2,146 @@
 
 exports[`message from me 1`] = `
 <div
-  className="sc-bdVaJa gXWJqC"
+  className="sc-bwzfXH iZXMpX"
 >
   <div
-    className="sc-bwzfXH kmfMKZ"
+    className="sc-htpNat fPLdOd"
   >
-    <span
-      className="sc-htpNat drENqL"
+    <div
+      className="sc-bxivhb bJuYab"
     >
-      some message
-    </span>
+      <p
+        className="sc-ifAKCX iCeWzE"
+      >
+        some message
+      </p>
+    </div>
+    <span
+      className="sc-EHOje iXMCFR"
+    />
   </div>
-  <span
-    className="sc-bxivhb TwBys"
+</div>
+`;
+
+exports[`message with avatar 1`] = `
+<div
+  className="sc-bwzfXH jAskBZ"
+>
+  <img
+    className="sc-bdVaJa ievrqM"
+    src="image.png"
   />
+  <div
+    className="sc-htpNat iSvghE"
+  >
+    <div
+      className="sc-bxivhb bvgTps"
+    >
+      <p
+        className="sc-ifAKCX iCeWzE"
+      >
+        some message
+      </p>
+    </div>
+    <span
+      className="sc-EHOje iXMCFR"
+    />
+  </div>
+</div>
+`;
+
+exports[`message with avatar from me 1`] = `
+<div
+  className="sc-bwzfXH hDcmlr"
+>
+  <img
+    className="sc-bdVaJa ievrqM"
+    src="image.png"
+  />
+  <div
+    className="sc-htpNat fKnvPy"
+  >
+    <div
+      className="sc-bxivhb bJuYab"
+    >
+      <p
+        className="sc-ifAKCX iCeWzE"
+      >
+        some message
+      </p>
+    </div>
+    <span
+      className="sc-EHOje iXMCFR"
+    />
+  </div>
 </div>
 `;
 
 exports[`message with children 1`] = `
 <div
-  className="sc-bdVaJa ggSTVf"
+  className="sc-bwzfXH kTdYcZ"
 >
   <div
-    className="sc-bwzfXH dqrULd"
+    className="sc-htpNat kayhEG"
   >
-    <span
-      className="sc-htpNat drENqL"
+    <div
+      className="sc-bxivhb bvgTps"
     >
-      some message
-    </span>
+      <p
+        className="sc-ifAKCX iCeWzE"
+      >
+        some message
+      </p>
+    </div>
+    <span
+      className="sc-EHOje iXMCFR"
+    />
   </div>
-  <span
-    className="sc-bxivhb TwBys"
-  />
 </div>
 `;
 
 exports[`message with label 1`] = `
 <div
-  className="sc-bdVaJa ggSTVf"
+  className="sc-bwzfXH kTdYcZ"
 >
   <div
-    className="sc-bwzfXH dqrULd"
+    className="sc-htpNat kayhEG"
   >
-    <span
-      className="sc-htpNat drENqL"
+    <div
+      className="sc-bxivhb bvgTps"
     >
-      some message
+      <p
+        className="sc-ifAKCX iCeWzE"
+      >
+        some message
+      </p>
+    </div>
+    <span
+      className="sc-EHOje iXMCFR"
+    >
+      some label
     </span>
   </div>
-  <span
-    className="sc-bxivhb TwBys"
-  >
-    some label
-  </span>
 </div>
 `;
 
 exports[`message with not children 1`] = `
 <div
-  className="sc-bdVaJa ggSTVf"
+  className="sc-bwzfXH kTdYcZ"
 >
   <div
-    className="sc-bwzfXH dqrULd"
+    className="sc-htpNat kayhEG"
   >
+    <div
+      className="sc-bxivhb bvgTps"
+    >
+      <p
+        className="sc-ifAKCX iCeWzE"
+      />
+    </div>
     <span
-      className="sc-htpNat drENqL"
+      className="sc-EHOje iXMCFR"
     />
   </div>
-  <span
-    className="sc-bxivhb TwBys"
-  />
 </div>
 `;

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { hot } from 'react-hot-loader';
 import format from 'date-fns/format';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import idx from 'idx';
 
 import type { RouterHistory } from 'react-router-dom';
@@ -21,7 +21,10 @@ import ChatMessages from '../../containers/ChatMessages/ChatMessages';
 
 import Messages from '../../components/Messages/Messages';
 import Message from '../../components/Message/Message';
+
 import Icon from '../../components/Icon/Icon';
+import Badge from '../../components/Badge/Badge';
+import Avatar from '../../components/Avatar/Avatar';
 
 import withData from '../../hocs/withData';
 
@@ -32,17 +35,16 @@ const SidebarWrapper = styled.div`
   width: 10%;
   max-height: 100%;
   overflow-y: auto;
-  background: ${props => props.theme.palette.secondary};
+  background: linear-gradient(${props => props.theme.palette.primary}, ${props => props.theme.palette.secondary});
   position: fixed;
   left: 0;
   top: ${props => props.theme.header.height};
   bottom: ${props => props.theme.header.height};
-  padding: 2rem;
 `;
 
-const CustomSidebar = styled(Sidebar)`
+const CustomSidebar = Sidebar.extend`
   min-height: 100%;
-  display: table;
+  margin: 0;
 `;
 
 const User = styled.div`
@@ -51,23 +53,24 @@ const User = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-top: 1rem;
   cursor: pointer;
+  padding: 2rem;
 
-  &:first-of-type {
-    margin: 0;
-  }
+  ${props =>
+    props.selected &&
+    css`
+      background: ${props => props.theme.palette.gray};
+    `};
 `;
 
-const UserImage = styled.img`
+const UserImage = styled.div`
   width: 100%;
-  height: auto;
 `;
 
 const UserName = styled.span`
   text-align: center;
   color: white;
-  font-size: 1rem;
+  font-size: 14px;
   margin-top: 0.5rem;
   font-weight: 400;
 `;
@@ -96,8 +99,8 @@ const NoMessages = styled.h1`
   }
 `;
 
-const CustomMessages = styled(Messages)`
-  padding-bottom: 90px;
+const CustomMessages = Messages.extend`
+  padding: 1rem 3rem 90px;
 `;
 
 const SendMessageActions = styled.div`
@@ -130,17 +133,16 @@ const SendMessageInput = styled.input`
   flex: 1;
   border: 1px solid ${props => props.theme.palette.gray};
   border-radius: 2rem;
-  padding: ${props => props.theme.padding};
-  font-size: 16px;
+  padding: 10px ${props => props.theme.padding};
+  font-size: 14px;
   margin: 0 1rem;
   font-family: 'Montserrat', sans-serif;
 `;
 
 const SendMessageButton = styled.button`
-  padding: ${props => props.theme.padding};
+  padding: 10px 1rem;
   background: transparent;
-  border: 1px solid ${props => props.theme.palette.gray};
-  color: ${props => props.theme.palette.gray};
+  border: none;
   border-radius: 50%;
   cursor: pointer;
 `;
@@ -166,13 +168,19 @@ class Chat extends React.Component<Props, State> {
 
   componentWillMount() {
     const chat = this.getChat(this.props);
-    const highlightedConversation = Object.keys(idx(chat, _ => _.conversations) || {})[0];
 
     if (!chat) {
       return this.props.history.push(routeTo(ROUTES.ONBOARD));
     }
 
-    this.setState({ chat, conversation: highlightedConversation });
+    const [highlightedConversationId] = Object.keys(idx(chat, _ => _.conversations) || {});
+    this.setState(
+      {
+        chat,
+        conversation: highlightedConversationId || null,
+      },
+      () => this.readUnreachedMessages(highlightedConversationId),
+    );
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -223,20 +231,48 @@ class Chat extends React.Component<Props, State> {
     });
   };
 
+  readUnreachedMessages = (conversationId: string) => {
+    const conversations = idx(this.state.chat, _ => _.conversations) || {};
+    const conversation = conversations[conversationId] || {};
+
+    if (conversation.unreachedMessagesCount > 0) {
+      this.setState({
+        chat: {
+          ...this.state.chat,
+          conversations: {
+            ...conversations,
+            [conversationId]: {
+              ...conversation,
+              unreachedMessagesCount: 0,
+            },
+          },
+        },
+      });
+    }
+  };
+
   openConversation = (id: string) => {
-    this.setState({ conversation: id });
+    this.setState({ conversation: id }, () => this.readUnreachedMessages(id));
   };
 
   renderConversations = () => {
     return Object.values(idx(this.state.chat, _ => _.conversations) || {}).map(conversation => {
       if (!conversation) return null;
 
+      // $FlowFixMe
+      const { id, unreachedMessagesCount, user } = conversation;
+
       return (
-        // $FlowFixMe
-        <User key={conversation.id} onClick={() => this.openConversation(conversation.id)}>
-          <UserImage src="https://i.imgur.com/I80W1Q0.png" />
-          {/*$FlowFixMe*/}
-          <UserName>{conversation.user.name}</UserName>
+        <User key={id} selected={this.state.conversation === id} onClick={() => this.openConversation(id)}>
+          <UserImage>
+            {unreachedMessagesCount > 0 && (
+              <Badge left={16 * 3}>
+                <Badge.Circle color={theme.palette.yellow} border={theme.palette.white} />
+              </Badge>
+            )}
+            <Avatar avatar={user.avatarUrl} />
+          </UserImage>
+          <UserName>{user.name}</UserName>
         </User>
       );
     });
@@ -249,7 +285,9 @@ class Chat extends React.Component<Props, State> {
     return (
       <ChatMessages conversation={conversation}>
         {({ messages, user }) => {
-          if (!messages || !messages.edges || messages.edges.length < 1) {
+          const edges = (messages || {}).edges || [];
+
+          if (edges.length < 1) {
             return (
               <NoMessages>
                 <strong>There's no messages yet!</strong>
@@ -260,15 +298,22 @@ class Chat extends React.Component<Props, State> {
 
           return (
             <CustomMessages>
-              {messages.edges.map(({ node }) => (
-                <Message
-                  key={node.id}
-                  isFromMe={node.author.id !== (user || {}).id}
-                  label={format(new Date(node.createdAt), 'HH:mm')}
-                >
-                  {node.text}
-                </Message>
-              ))}
+              {edges.map(({ node }, i) => {
+                const { id: authorId, avatarUrl } = node.author || {};
+                const latestMessageFromSameAuthorId = idx(edges[i - 1], _ => _.node.author.id);
+                const isTheLatestMessageFromSameAuthor = latestMessageFromSameAuthorId === authorId;
+
+                return (
+                  <Message
+                    key={node.id}
+                    isFromMe={authorId !== (user || {}).id}
+                    avatar={!isTheLatestMessageFromSameAuthor && avatarUrl}
+                    label={format(new Date(node.createdAt), 'HH:mm')}
+                  >
+                    {node.text}
+                  </Message>
+                );
+              })}
             </CustomMessages>
           );
         }}
@@ -288,7 +333,7 @@ class Chat extends React.Component<Props, State> {
           />
           <SendMessageButton onClick={this.addMessage}>
             <Icon size={20}>
-              <Icon.SendMessage color="black" />
+              <Icon.SendMessage color={theme.palette.gray} />
             </Icon>
           </SendMessageButton>
         </SendMessage>

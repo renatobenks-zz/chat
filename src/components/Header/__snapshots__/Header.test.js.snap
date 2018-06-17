@@ -2,7 +2,7 @@
 
 exports[`renders correctly 1`] = `
 <header
-  className="sc-bdVaJa ghYoLl"
+  className="sc-bdVaJa jIcoTq"
 >
   <span>
     text into header

@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import styled from 'styled-components';
+import idx from 'idx';
 
 import type { Conversation, Messages, User } from '../../data';
 
@@ -33,12 +34,7 @@ class ChatMessages extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    this.setState({ isLoading: true });
-
-    this.timeout = setTimeout(() => {
-      this.fetchChatMessages();
-      this.setState({ isLoading: false });
-    }, 1500);
+    this.fetchChatMessages();
   }
 
   componentWillUnmount() {
@@ -47,12 +43,22 @@ class ChatMessages extends React.Component<Props, State> {
 
   componentWillReceiveProps(nextProps: Props) {
     if (nextProps.conversation !== this.props.conversation) {
+      if (idx(nextProps.conversation, _ => _.id) !== idx(this.props.conversation, _ => _.id)) {
+        this.fetchChatMessages();
+        return;
+      }
+
       this.receiveMessages(nextProps);
     }
   }
 
   fetchChatMessages = () => {
-    this.receiveMessages();
+    this.setState({ isLoading: true });
+
+    this.timeout = setTimeout(() => {
+      this.receiveMessages();
+      this.setState({ isLoading: false });
+    }, 1500);
   };
 
   receiveMessages = (props?: Props) => {

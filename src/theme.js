@@ -9,6 +9,7 @@ const theme = {
     gray: '#828796',
     white: '#fff',
     black: '#000',
+    yellow: '#ffff00',
   },
   responsive: {
     extraSmall: {
@@ -37,7 +38,10 @@ const theme = {
   },
   padding: '1rem',
   header: {
-    height: '90px',
+    height: '70px',
+  },
+  avatar: {
+    size: '4rem',
   },
 };
 
