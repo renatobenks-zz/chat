@@ -5,7 +5,7 @@ exports[`circle with border 1`] = `
   viewBox="0 0 120 120"
 >
   <circle
-    className="sc-bdVaJa eZilsQ"
+    className="sc-bdVaJa ghaSRT"
     cx="60"
     cy="60"
     r="50"
@@ -18,7 +18,7 @@ exports[`circle with custom border 1`] = `
   viewBox="0 0 120 120"
 >
   <circle
-    className="sc-bdVaJa kUhKqG"
+    className="sc-bdVaJa kKawRB"
     cx="60"
     cy="60"
     r="50"

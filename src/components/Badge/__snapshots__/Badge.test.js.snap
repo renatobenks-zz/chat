@@ -13,28 +13,28 @@ exports[`badge with children 1`] = `
 
 exports[`badge with custom positions 1`] = `
 <div
-  className="sc-bwzfXH isOGMw"
+  className="sc-bwzfXH hmiDgM"
   size={20}
 />
 `;
 
 exports[`badge with custom positions 2`] = `
 <div
-  className="sc-bwzfXH WnZmn"
+  className="sc-bwzfXH eBIpuq"
   size={20}
 />
 `;
 
 exports[`badge with custom positions 3`] = `
 <div
-  className="sc-bwzfXH iNcVuh"
+  className="sc-bwzfXH dMXhtB"
   size={20}
 />
 `;
 
 exports[`badge with custom positions 4`] = `
 <div
-  className="sc-bwzfXH kOzyZS"
+  className="sc-bwzfXH ewTNnx"
   size={20}
 />
 `;
@@ -48,28 +48,28 @@ exports[`badge with custom size 1`] = `
 
 exports[`badge with default positions 1`] = `
 <div
-  className="sc-bwzfXH fednPj"
+  className="sc-bwzfXH iENjUu"
   size={20}
 />
 `;
 
 exports[`badge with default positions 2`] = `
 <div
-  className="sc-bwzfXH kTohck"
+  className="sc-bwzfXH cWmCLJ"
   size={20}
 />
 `;
 
 exports[`badge with default positions 3`] = `
 <div
-  className="sc-bwzfXH fqzvgJ"
+  className="sc-bwzfXH dYfbcO"
   size={20}
 />
 `;
 
 exports[`badge with default positions 4`] = `
 <div
-  className="sc-bwzfXH cVNCrz"
+  className="sc-bwzfXH NGCRN"
   size={20}
 />
 `;
