@@ -5,6 +5,7 @@ const data = {
     id: '2014',
     name: 'Renato Benkendorf',
     email: 'renatobenkendorfs@gmail.com',
+    avatarUrl: 'https://avatars3.githubusercontent.com/u/14860216?v=4',
   },
   chat: {
     '1024': {
@@ -13,14 +14,17 @@ const data = {
         id: '2014',
         name: 'Renato Benkendorf',
         email: 'renatobenkendorfs@gmail.com',
+        avatarUrl: 'https://avatars3.githubusercontent.com/u/14860216?v=4',
       },
       conversations: {
         '1000': {
           id: '1000',
+          unreachedMessagesCount: 1,
           user: {
             id: '2013',
             name: 'Luck John',
             email: 'luck.john@gmail.com',
+            avatarUrl: 'https://i.imgur.com/I80W1Q0.png',
           },
           messages: {
             pageInfo: {
@@ -40,6 +44,7 @@ const data = {
                     id: '2013',
                     name: 'Luck John',
                     email: 'luck.john@gmail.com',
+                    avatarUrl: 'https://i.imgur.com/I80W1Q0.png',
                   },
                 },
               },
@@ -53,6 +58,7 @@ const data = {
                     id: '2014',
                     name: 'Renato Benkendorf',
                     email: 'renatobenkendorfs@gmail.com',
+                    avatarUrl: 'https://avatars3.githubusercontent.com/u/14860216?v=4',
                   },
                 },
               },
@@ -61,10 +67,12 @@ const data = {
         },
         '1001': {
           id: '1001',
+          unreachedMessagesCount: 1,
           user: {
             id: '2012',
             name: 'Juquinha',
             email: 'juquinha@gmail.com',
+            avatarUrl: 'https://i.imgur.com/I80W1Q0.png',
           },
           messages: {
             pageInfo: {
@@ -84,6 +92,7 @@ const data = {
                     id: '2012',
                     name: 'Juquinha',
                     email: 'juquinha@gmail.com',
+                    avatarUrl: 'https://i.imgur.com/I80W1Q0.png',
                   },
                 },
               },
@@ -97,6 +106,7 @@ const data = {
                     id: '2012',
                     name: 'Juquinha',
                     email: 'juquinha@gmail.com',
+                    avatarUrl: 'https://i.imgur.com/I80W1Q0.png',
                   },
                 },
               },
@@ -105,10 +115,12 @@ const data = {
         },
         '1002': {
           id: '1002',
+          unreachedMessagesCount: 0,
           user: {
             id: '2011',
             name: 'Brendon James',
             email: 'brendon.james@gmail.com',
+            avatarUrl: 'https://i.imgur.com/I80W1Q0.png',
           },
           messages: {
             pageInfo: {
@@ -128,6 +140,7 @@ const data = {
                     id: '2011',
                     name: 'Brendon James',
                     email: 'brendon.james@gmail.com',
+                    avatarUrl: 'https://i.imgur.com/I80W1Q0.png',
                   },
                 },
               },
@@ -136,10 +149,12 @@ const data = {
         },
         '1003': {
           id: '1003',
+          unreachedMessagesCount: 1,
           user: {
             id: '2010',
             name: 'Bill Bon',
             email: 'bill.bon@gmail.com',
+            avatarUrl: 'https://i.imgur.com/I80W1Q0.png',
           },
           messages: {
             pageInfo: {
@@ -159,6 +174,7 @@ const data = {
                     id: '2010',
                     name: 'Bill Bon',
                     email: 'bill.bon@gmail.com',
+                    avatarUrl: 'https://i.imgur.com/I80W1Q0.png',
                   },
                 },
               },
@@ -174,6 +190,7 @@ export type User = {
   id: string,
   name: string,
   email: string,
+  avatarUrl: string,
 };
 
 export type Messages = {
@@ -198,6 +215,7 @@ export type Messages = {
 
 export type Conversation = {
   id: string,
+  unreachedMessagesCount: number,
   user: User,
   messages: Messages,
 };

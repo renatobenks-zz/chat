@@ -21,3 +21,17 @@ it('message with label', () => {
 it('message from me', () => {
   expect(renderer(<Message isFromMe={true}>some message</Message>)).toMatchSnapshot();
 });
+
+it('message with avatar', () => {
+  expect(renderer(<Message avatar={'image.png'}>some message</Message>)).toMatchSnapshot();
+});
+
+it('message with avatar from me', () => {
+  expect(
+    renderer(
+      <Message isFromMe avatar={'image.png'}>
+        some message
+      </Message>,
+    ),
+  ).toMatchSnapshot();
+});

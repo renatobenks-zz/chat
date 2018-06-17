@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`circle with border 1`] = `
+<svg
+  viewBox="0 0 120 120"
+>
+  <circle
+    className="sc-bdVaJa eZilsQ"
+    cx="60"
+    cy="60"
+    r="50"
+  />
+</svg>
+`;
+
+exports[`circle with custom border 1`] = `
+<svg
+  viewBox="0 0 120 120"
+>
+  <circle
+    className="sc-bdVaJa kUhKqG"
+    cx="60"
+    cy="60"
+    r="50"
+  />
+</svg>
+`;
+
+exports[`circle with custom color 1`] = `
+<svg
+  viewBox="0 0 120 120"
+>
+  <circle
+    className="sc-bdVaJa hySWXy"
+    color="gray"
+    cx="60"
+    cy="60"
+    r="50"
+  />
+</svg>
+`;
+
+exports[`default circle 1`] = `
+<svg
+  viewBox="0 0 120 120"
+>
+  <circle
+    className="sc-bdVaJa kShjcB"
+    cx="60"
+    cy="60"
+    r="50"
+  />
+</svg>
+`;

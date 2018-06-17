@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`avatar with children 1`] = `
+<img
+  className="sc-bdVaJa bPnyOK"
+  src="image.png"
+>
+  <span>
+    anything
+  </span>
+</img>
+`;
+
+exports[`avatar with custom border 1`] = `
+<img
+  className="sc-bdVaJa lazlvv"
+  src="image.png"
+/>
+`;
+
+exports[`avatar with custom size 1`] = `
+<img
+  className="sc-bdVaJa dhlLGt"
+  size="40px"
+  src="image.png"
+/>
+`;
+
+exports[`avatar with no children 1`] = `
+<img
+  className="sc-bdVaJa bPnyOK"
+  src="image.png"
+/>
+`;
+
+exports[`avatar with no image 1`] = `
+<img
+  className="sc-bdVaJa bPnyOK"
+/>
+`;

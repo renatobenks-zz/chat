@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`badge with children 1`] = `
+<div
+  className="sc-bwzfXH gRMGFR"
+  size={20}
+>
+  <span>
+    badge
+  </span>
+</div>
+`;
+
+exports[`badge with custom positions 1`] = `
+<div
+  className="sc-bwzfXH isOGMw"
+  size={20}
+/>
+`;
+
+exports[`badge with custom positions 2`] = `
+<div
+  className="sc-bwzfXH WnZmn"
+  size={20}
+/>
+`;
+
+exports[`badge with custom positions 3`] = `
+<div
+  className="sc-bwzfXH iNcVuh"
+  size={20}
+/>
+`;
+
+exports[`badge with custom positions 4`] = `
+<div
+  className="sc-bwzfXH kOzyZS"
+  size={20}
+/>
+`;
+
+exports[`badge with custom size 1`] = `
+<div
+  className="sc-bwzfXH kgbHKq"
+  size={60}
+/>
+`;
+
+exports[`badge with default positions 1`] = `
+<div
+  className="sc-bwzfXH fednPj"
+  size={20}
+/>
+`;
+
+exports[`badge with default positions 2`] = `
+<div
+  className="sc-bwzfXH kTohck"
+  size={20}
+/>
+`;
+
+exports[`badge with default positions 3`] = `
+<div
+  className="sc-bwzfXH fqzvgJ"
+  size={20}
+/>
+`;
+
+exports[`badge with default positions 4`] = `
+<div
+  className="sc-bwzfXH cVNCrz"
+  size={20}
+/>
+`;
+
+exports[`badge with no children 1`] = `
+<div
+  className="sc-bwzfXH gRMGFR"
+  size={20}
+/>
+`;
+
+exports[`badge with style 1`] = `
+<div
+  className="sc-bwzfXH gRMGFR"
+  size={20}
+  style={
+    Object {
+      "justifyContent": "flex-start",
+    }
+  }
+/>
+`;

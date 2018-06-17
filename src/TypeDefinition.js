@@ -14,3 +14,7 @@ export type RouteType = {
 export type RouteParamsType = {
   [string]: string,
 };
+
+export type StyleProp = {
+  [key: string]: any,
+};
