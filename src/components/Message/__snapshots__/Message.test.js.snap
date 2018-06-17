@@ -28,7 +28,7 @@ exports[`message with avatar 1`] = `
   className="sc-bwzfXH jAskBZ"
 >
   <img
-    className="sc-bdVaJa bPnyOK"
+    className="sc-bdVaJa ievrqM"
     src="image.png"
   />
   <div
@@ -55,7 +55,7 @@ exports[`message with avatar from me 1`] = `
   className="sc-bwzfXH hDcmlr"
 >
   <img
-    className="sc-bdVaJa bPnyOK"
+    className="sc-bdVaJa ievrqM"
     src="image.png"
   />
   <div

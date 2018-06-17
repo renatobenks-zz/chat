@@ -1,6 +1,6 @@
 // @flow
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Avatar = styled.img.attrs({
   src: ({ avatar }) => avatar,
@@ -8,7 +8,11 @@ const Avatar = styled.img.attrs({
   width: ${props => props.size || props.theme.avatar.size};
   height: auto;
   border-radius: 50%;
-  border: 2px solid ${props => props.border || props.theme.palette.white};
+  ${props =>
+    props.border &&
+    css`
+      border: 2px solid ${props.border !== true ? props.border : props.theme.palette.white};
+    `};
   margin: 0;
 `;
 
