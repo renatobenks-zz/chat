@@ -2,7 +2,7 @@
 
 exports[`avatar with border 1`] = `
 <img
-  className="sc-bdVaJa cgbbLi"
+  className="sc-bdVaJa jzrVrQ"
   src="image.png"
 />
 `;
@@ -20,7 +20,7 @@ exports[`avatar with children 1`] = `
 
 exports[`avatar with custom border 1`] = `
 <img
-  className="sc-bdVaJa bxwYMA"
+  className="sc-bdVaJa guoxHn"
   src="image.png"
 />
 `;
