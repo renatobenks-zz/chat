@@ -91,6 +91,7 @@
       "yarn prettier",
       "eslint --fix",
       "stylelint",
+      "yarn test -u",
       "git add"
     ]
   },
