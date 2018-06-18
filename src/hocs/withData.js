@@ -14,6 +14,7 @@ export type WithDataProps = {
   ...Props,
   ...State,
   addMessage: (chatId: string, conversationId: string, text: string) => void,
+  readUnreachedMessages: (chatId: string, conversationId: string) => void,
 };
 
 type State = {
@@ -33,6 +34,30 @@ export default function withData(Component: React.ComponentType<WithDataProps>):
       me: data.me,
       // $FlowFixMe
       chat: data.chat,
+    };
+
+    readUnreachedMessages = (chatId: ?string, conversationId: string) => {
+      const chat = this.state.chat[chatId] || {};
+      const conversations = idx(chat, _ => _.conversations) || {};
+      const conversation = conversations[conversationId] || {};
+
+      if (conversation.unreachedMessagesCount > 0) {
+        this.setState({
+          chat: {
+            ...this.state.chat,
+            [chatId]: {
+              ...chat,
+              conversations: {
+                ...conversations,
+                [conversationId]: {
+                  ...conversation,
+                  unreachedMessagesCount: 0,
+                },
+              },
+            },
+          },
+        });
+      }
     };
 
     addMessage = (chatId: string, conversationId: string, text: string) => {
@@ -74,7 +99,14 @@ export default function withData(Component: React.ComponentType<WithDataProps>):
     };
 
     render() {
-      return <Component {...this.props} {...this.state} addMessage={this.addMessage} />;
+      return (
+        <Component
+          {...this.props}
+          {...this.state}
+          addMessage={this.addMessage}
+          readUnreachedMessages={this.readUnreachedMessages}
+        />
+      );
     }
   }
 

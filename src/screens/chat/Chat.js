@@ -148,7 +148,6 @@ const SendMessageButton = styled.button`
 `;
 
 type State = {
-  chat: ?ChatType,
   conversation: ?string,
   message: ?string,
 };
@@ -161,13 +160,12 @@ type Props = {
 
 class Chat extends React.Component<Props, State> {
   state = {
-    chat: null,
     conversation: null,
     message: null,
   };
 
   componentWillMount() {
-    const chat = this.getChat(this.props);
+    const chat = this.getChat();
 
     if (!chat) {
       return this.props.history.push(routeTo(ROUTES.ONBOARD));
@@ -176,38 +174,31 @@ class Chat extends React.Component<Props, State> {
     const [highlightedConversationId] = Object.keys(idx(chat, _ => _.conversations) || {});
     this.setState(
       {
-        chat,
         conversation: highlightedConversationId || null,
       },
       () => this.readUnreachedMessages(highlightedConversationId),
     );
   }
 
-  componentWillReceiveProps(nextProps: Props) {
-    const chat = this.getChat(nextProps);
-
-    if (chat !== this.state.chat) {
-      this.setState({ chat });
-    }
-  }
-
-  getChat = (props: Props): ?ChatType => {
+  getChat = (): ?ChatType => {
+    const { chat } = this.props;
     const channel = getChannel();
 
     // $FlowFixMe
-    const chat = channel && props.chat && props.chat[channel];
+    const currentChat = channel && chat && chat[channel];
 
-    if (!chat) return null;
+    if (!currentChat) return null;
 
     // $FlowFixMe
-    return chat;
+    return currentChat;
   };
 
   addMessage = () => {
-    const { message, chat, conversation } = this.state;
+    const { message, conversation } = this.state;
 
     // $FlowFixMe
-    const { id: chatId } = chat || {};
+    const { id: chatId } = this.getChat() || {};
+
     if (!message || !chatId || !conversation) return;
 
     // $FlowFixMe
@@ -232,23 +223,9 @@ class Chat extends React.Component<Props, State> {
   };
 
   readUnreachedMessages = (conversationId: string) => {
-    const conversations = idx(this.state.chat, _ => _.conversations) || {};
-    const conversation = conversations[conversationId] || {};
-
-    if (conversation.unreachedMessagesCount > 0) {
-      this.setState({
-        chat: {
-          ...this.state.chat,
-          conversations: {
-            ...conversations,
-            [conversationId]: {
-              ...conversation,
-              unreachedMessagesCount: 0,
-            },
-          },
-        },
-      });
-    }
+    const chat = this.getChat() || {};
+    // $FlowFixMe
+    this.props.readUnreachedMessages(chat.id, conversationId);
   };
 
   openConversation = (id: string) => {
@@ -256,7 +233,7 @@ class Chat extends React.Component<Props, State> {
   };
 
   renderConversations = () => {
-    return Object.values(idx(this.state.chat, _ => _.conversations) || {}).map(conversation => {
+    return Object.values(idx(this.getChat(), _ => _.conversations) || {}).map(conversation => {
       if (!conversation) return null;
 
       // $FlowFixMe
@@ -280,7 +257,7 @@ class Chat extends React.Component<Props, State> {
 
   renderChatMessages = (): React.Element<typeof ChatMessages> => {
     const { conversation: conversationId } = this.state;
-    const conversation = conversationId ? idx(this.state.chat, _ => _.conversations[conversationId]) : null;
+    const conversation = conversationId ? idx(this.getChat(), _ => _.conversations[conversationId]) : null;
 
     return (
       <ChatMessages conversation={conversation}>
@@ -342,15 +319,11 @@ class Chat extends React.Component<Props, State> {
   };
 
   render() {
-    const { chat } = this.state;
-
     return (
       <Content title={this.props.title} style={styles.content}>
-        {chat && (
-          <SidebarWrapper>
-            <CustomSidebar>{this.renderConversations()}</CustomSidebar>
-          </SidebarWrapper>
-        )}
+        <SidebarWrapper>
+          <CustomSidebar>{this.renderConversations()}</CustomSidebar>
+        </SidebarWrapper>
         <Conversation>
           {this.renderChatMessages()}
           {this.renderSendMessage()}
