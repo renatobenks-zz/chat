@@ -2,12 +2,13 @@
 
 import * as React from 'react';
 
+import theme from '../../../theme';
+
 type Props = {
   color?: string,
-  size?: number,
 };
 
-const SendMessageIcon = ({ color, size }: Props) => {
+const SendMessageIcon = ({ color }: Props) => {
   return (
     <svg viewBox="0 0 367.92 367.92" xmlSpace="preserve">
       <g fill={color}>
@@ -21,7 +22,7 @@ const SendMessageIcon = ({ color, size }: Props) => {
 };
 
 SendMessageIcon.defaultProps = {
-  color: 'white',
+  color: theme.palette.white,
 };
 
 export default SendMessageIcon;
