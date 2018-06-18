@@ -8,7 +8,7 @@ type Props = {
   color?: string,
 };
 
-const SendMessageIcon = ({ color }: Props) => {
+const SendMessage = ({ color }: Props) => {
   return (
     <svg viewBox="0 0 367.92 367.92" xmlSpace="preserve">
       <g fill={color}>
@@ -21,8 +21,8 @@ const SendMessageIcon = ({ color }: Props) => {
   );
 };
 
-SendMessageIcon.defaultProps = {
+SendMessage.defaultProps = {
   color: theme.palette.white,
 };
 
-export default SendMessageIcon;
+export default SendMessage;
