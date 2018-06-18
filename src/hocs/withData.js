@@ -37,7 +37,8 @@ export default function withData(Component: React.ComponentType<WithDataProps>):
     };
 
     readUnreachedMessages = (chatId: ?string, conversationId: string) => {
-      const chat = this.state.chat[chatId] || {};
+      if (!chatId) return;
+      const chat = this.state.chat[chatId];
       const conversations = idx(chat, _ => _.conversations) || {};
       const conversation = conversations[conversationId] || {};
 
@@ -67,6 +68,16 @@ export default function withData(Component: React.ComponentType<WithDataProps>):
 
       if (!messages) return;
 
+      const node = {
+        cursor: (idx(messages, _ => _.edges.length) || 0).toString(),
+        node: {
+          id: uuid(),
+          text,
+          createdAt: new Date().toISOString(),
+          author: this.state.me,
+        },
+      };
+
       this.setState({
         chat: {
           ...this.state.chat,
@@ -78,18 +89,7 @@ export default function withData(Component: React.ComponentType<WithDataProps>):
                 ...conversation,
                 messages: {
                   ...messages,
-                  edges: [
-                    ...(messages.edges || []),
-                    {
-                      cursor: (idx(messages, _ => _.edges.length) || 0).toString(),
-                      node: {
-                        id: uuid(),
-                        text,
-                        createdAt: new Date().toISOString(),
-                        author: this.state.me,
-                      },
-                    },
-                  ],
+                  edges: [...(messages.edges || []), node],
                 },
               },
             },
