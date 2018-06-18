@@ -5,13 +5,6 @@ import styled from 'styled-components';
 
 import SendMessageIcon from './SendMessageIcon/SendMessageIcon';
 
-type Props = {
-  withWrapper?: boolean,
-  children: React.Element<typeof SendMessageIcon>,
-  size?: number,
-  color?: string,
-};
-
 const IconWrapper = styled.div`
   width: ${props => props.size && `${props.size}px`};
   height: ${props => props.size && `${props.size}px`};
@@ -23,6 +16,13 @@ const IconWrapper = styled.div`
     width: 100%;
   }
 `;
+
+type Props = {
+  withWrapper?: boolean,
+  children: React.Element<typeof SendMessageIcon>,
+  size?: number,
+  color?: string,
+};
 
 const Icon = ({ size, withWrapper, children }: Props) => {
   if (!withWrapper) return children;
