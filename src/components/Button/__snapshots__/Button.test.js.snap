@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`button 1`] = `
+<button
+  className="sc-bdVaJa dPPcZB"
+>
+  <span>
+    message
+  </span>
+</button>
+`;
+
+exports[`button with custom background 1`] = `
+<button
+  className="sc-bdVaJa fEIDvw"
+>
+  <span>
+    message
+  </span>
+</button>
+`;
+
+exports[`button with custom color 1`] = `
+<button
+  className="sc-bdVaJa kvxBxa"
+  color="white"
+/>
+`;
+
+exports[`button with custom styles 1`] = `
+<button
+  className="sc-bdVaJa kSjDXp"
+/>
+`;
+
+exports[`handle button click 1`] = `
+<button
+  className="sc-bdVaJa dPPcZB"
+  onClick={[MockFunction]}
+/>
+`;
