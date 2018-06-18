@@ -29,7 +29,7 @@ exports[`button with custom color 1`] = `
 
 exports[`button with custom styles 1`] = `
 <button
-  className="sc-bdVaJa cApaJL"
+  className="sc-bdVaJa kSjDXp"
 />
 `;
 
