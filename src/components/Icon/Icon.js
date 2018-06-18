@@ -1,16 +1,22 @@
 // @flow
 
 import * as React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import SendMessageIcon from './SendMessageIcon/SendMessageIcon';
+import SendMessage from './SendMessage/SendMessage';
+import Back from './Back/Back';
 
 const IconWrapper = styled.div`
-  width: ${props => props.size && `${props.size}px`};
-  height: ${props => props.size && `${props.size}px`};
   display: flex;
   align-items: center;
   justify-content: center;
+
+  ${props =>
+    props.size &&
+    css`
+      width: ${props.size}px;
+      height: ${props.size}px;
+    `};
 
   > svg {
     width: 100%;
@@ -19,9 +25,8 @@ const IconWrapper = styled.div`
 
 type Props = {
   withWrapper?: boolean,
-  children: React.Element<typeof SendMessageIcon>,
   size?: number,
-  color?: string,
+  children: React.Element<typeof SendMessage> | React.Element<typeof Back>,
 };
 
 const Icon = ({ size, withWrapper, children }: Props) => {
@@ -32,8 +37,10 @@ const Icon = ({ size, withWrapper, children }: Props) => {
 
 Icon.defaultProps = {
   withWrapper: true,
+  size: 40,
 };
 
-Icon.SendMessage = SendMessageIcon;
+Icon.SendMessage = SendMessage;
+Icon.Back = Back;
 
 export default Icon;
