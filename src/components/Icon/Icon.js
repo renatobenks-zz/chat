@@ -29,7 +29,7 @@ type Props = {
   withWrapper?: boolean,
   size?: number,
   children: Icons,
-  icon: Icons,
+  icon?: Icons,
 };
 
 const Icon = ({
