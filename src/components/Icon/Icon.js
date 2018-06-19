@@ -23,16 +23,22 @@ const IconWrapper = styled.div`
   }
 `;
 
+type Icons = React.Element<typeof SendMessage> | React.Element<typeof Back>;
+
 type Props = {
   withWrapper?: boolean,
   size?: number,
-  children: React.Element<typeof SendMessage> | React.Element<typeof Back>,
+  children: Icons,
+  icon: Icons,
 };
 
-const Icon = ({ size, withWrapper, children }: Props) => {
-  if (!withWrapper) return children;
+const Icon = ({
+  size, withWrapper, children, icon 
+}: Props) => {
+  const content = icon || children || null;
+  if (!withWrapper) return content;
 
-  return <IconWrapper size={size}>{children}</IconWrapper>;
+  return <IconWrapper size={size}>{content}</IconWrapper>;
 };
 
 Icon.defaultProps = {
